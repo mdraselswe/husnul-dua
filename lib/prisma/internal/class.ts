@@ -45,7 +45,8 @@ const config: runtime.GetPrismaClientConfig = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "sqlite",
+  "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -54,8 +55,8 @@ const config: runtime.GetPrismaClientConfig = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../lib/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Dua {\n  id              String   @id @default(cuid())\n  titleBengali    String\n  titleEnglish    String?\n  arabic          String\n  transliteration String\n  bengali         String\n  english         String?\n  tags            String // Comma-separated tags like \"headache,body-pain,any-pain\"\n  category        String? // Optional category like \"health\", \"protection\", etc.\n  source          String? // Source reference like \"Sahih Bukhari\"\n  times           String? // When to recite (e.g., \"3 times\", \"after Fajr\")\n  benefits        String? // Benefits in Bengali\n  createdAt       DateTime @default(now())\n  updatedAt       DateTime @updatedAt\n\n  @@index([tags])\n  @@index([category])\n}\n",
-  "inlineSchemaHash": "b42db517042669f2934a7427a3e3b24705317c37fc99a5dbde279c67e52ccddc",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../lib/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n  // For local development, use SQLite by changing provider to \"sqlite\"\n  // For production, use PostgreSQL (Supabase, Vercel Postgres, etc.)\n}\n\nmodel Dua {\n  id              String   @id @default(cuid())\n  titleBengali    String\n  titleEnglish    String?\n  arabic          String\n  transliteration String\n  bengali         String\n  english         String?\n  tags            String // Comma-separated tags like \"headache,body-pain,any-pain\"\n  category        String? // Optional category like \"health\", \"protection\", etc.\n  source          String? // Source reference like \"Sahih Bukhari\"\n  times           String? // When to recite (e.g., \"3 times\", \"after Fajr\")\n  benefits        String? // Benefits in Bengali\n  createdAt       DateTime @default(now())\n  updatedAt       DateTime @updatedAt\n\n  @@index([tags])\n  @@index([category])\n}\n",
+  "inlineSchemaHash": "086c2a1f1102bda3f421fe1c8616b46d00b98868cb28748db76617ab76200799",
   "copyEngine": true,
   "runtimeDataModel": {
     "models": {},

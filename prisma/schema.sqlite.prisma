@@ -1,5 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// Local development schema using SQLite
+// To use this, rename this file to schema.prisma temporarily
 
 generator client {
   provider = "prisma-client"
@@ -7,10 +7,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
-  // For local development, use SQLite by changing provider to "sqlite"
-  // For production, use PostgreSQL (Supabase, Vercel Postgres, etc.)
 }
 
 model Dua {
@@ -32,3 +30,4 @@ model Dua {
   @@index([tags])
   @@index([category])
 }
+

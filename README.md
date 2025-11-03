@@ -37,14 +37,50 @@ npm run dev
 
 ## প্রোডাকশনে ডিপ্লয়
 
-```bash
-npm run build
-npm start
-```
+**⚠️ গুরুত্বপূর্ণ:** Production-এ PostgreSQL database প্রয়োজন। SQLite deployment platforms (Vercel, Netlify) এ কাজ করে না।
+
+### Quick Setup (Supabase - Free):
+
+1. **Supabase Project তৈরি করুন:**
+   - [supabase.com](https://supabase.com) এ যান
+   - Free account তৈরি করুন
+   - নতুন project তৈরি করুন
+   - Settings → Database → Connection string copy করুন
+
+2. **Environment Variable সেট করুন:**
+   - Vercel/Netlify dashboard → Settings → Environment Variables
+   - `DATABASE_URL` = আপনার PostgreSQL connection string
+   - Format: `postgresql://user:password@host:port/database?sslmode=require`
+
+3. **Database Setup:**
+   ```bash
+   # Production database URL set করুন
+   export DATABASE_URL="your-postgresql-connection-string"
+   
+   # Schema push করুন
+   npx prisma db push
+   
+   # Seed data (optional)
+   npm run seed
+   ```
+
+4. **Deploy করুন:**
+   ```bash
+   npm run build
+   npm start
+   ```
+
+**বিস্তারিত deployment guide:** [DEPLOYMENT.md](./DEPLOYMENT.md) দেখুন
 
 ## ডাটাবেস
 
-SQLite ডাটাবেস `dev.db` ফাইলে সংরক্ষিত। Prisma Studio দিয়ে ডাটাবেস দেখতে পারেন:
+### Local Development (SQLite)
+Local development-এ SQLite ব্যবহার করা হয় (`prisma/dev.db`)।
+
+### Production (PostgreSQL)
+Production-এ PostgreSQL database প্রয়োজন। Supabase, Vercel Postgres, Railway, বা অন্য কোনো PostgreSQL provider ব্যবহার করুন।
+
+Prisma Studio দিয়ে ডাটাবেস দেখতে পারেন:
 
 ```bash
 npx prisma studio
