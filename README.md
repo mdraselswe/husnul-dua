@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# হুসনুল দুআ - ইসলামিক আমল ও দুআ
 
-## Getting Started
+একটি Progressive Web App (PWA) যা ইসলামিক দুআ, আমল ও জিকির সংরক্ষণ এবং অনুসন্ধান করার জন্য তৈরি করা হয়েছে।
 
-First, run the development server:
+## বৈশিষ্ট্য
 
+- ✅ **দ্রুত অনুসন্ধান**: দুআ, ট্যাগ বা বিষয়বস্তু দিয়ে দ্রুত খুঁজে পাবেন
+- ✅ **মাল্টি-পারপাস ট্যাগ**: একই দুআ অনেকগুলো কাজে ব্যবহার করা যাবে (যেমন: মাথা ব্যথা, শরীর ব্যথা, যেকোন ব্যথা)
+- ✅ **সম্পূর্ণ বাংলা, আরবি ও উচ্চারণ**: স্পষ্ট ফন্টে সবকিছু প্রদর্শিত হবে
+- ✅ **PWA সমর্থন**: মোবাইল এবং ডেস্কটপে ইনস্টল করা যাবে
+- ✅ **ডাটাবেস**: সব দুআ SQLite ডাটাবেসে সংরক্ষিত
+- ✅ **সহজ যোগ**: নতুন দুআ খুব সহজেই যোগ করা যাবে
+
+## ইনস্টলেশন
+
+1. Dependencies ইনস্টল করুন:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. ডাটাবেস তৈরি করুন:
+```bash
+npx prisma db push
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. (ঐচ্ছিক) Sample data যোগ করুন:
+```bash
+npm run seed
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Development server চালু করুন:
+```bash
+npm run dev
+```
 
-## Learn More
+5. ব্রাউজারে খুলুন [http://localhost:3000](http://localhost:3000)
 
-To learn more about Next.js, take a look at the following resources:
+## প্রোডাকশনে ডিপ্লয়
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run build
+npm start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ডাটাবেস
 
-## Deploy on Vercel
+SQLite ডাটাবেস `dev.db` ফাইলে সংরক্ষিত। Prisma Studio দিয়ে ডাটাবেস দেখতে পারেন:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npx prisma studio
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## কীভাবে ব্যবহার করবেন
+
+1. **দুআ খুঁজুন**: হোমপেজে সার্চ বার ব্যবহার করে দুআ খুঁজুন
+2. **ট্যাগ দিয়ে ফিল্টার করুন**: উপরের ট্যাগ বোতামগুলো ব্যবহার করুন
+3. **নতুন দুআ যোগ করুন**: "নতুন দুআ যোগ করুন" বোতামে ক্লিক করুন
+
+## ট্যাগ সিস্টেম
+
+ট্যাগ সিস্টেমের মাধ্যমে একই দুআ অনেক কাজে ব্যবহার করা যায়:
+- উদাহরণ: "মাথা ব্যথা, শরীর ব্যথা, যেকোন ব্যথা" - এই তিনটি ট্যাগ দিয়ে একই দুআ খুঁজে পাওয়া যাবে
+- আবার শুধু "মাথা ব্যথা" দিয়েও স্পেসিফিক দুআ খুঁজে পাওয়া যাবে
+
+## প্রযুক্তি
+
+- **Next.js 16** - Latest version with App Router
+- **TypeScript** - Type safety
+- **Prisma** - Database ORM
+- **SQLite** - Database
+- **Tailwind CSS** - Styling
+- **next-pwa** - PWA support
+- **Noto Sans Bengali** - Bengali font
+- **Noto Sans Arabic** - Arabic font
+
+## লাইসেন্স
+
+এই প্রজেক্টটি মুক্তভাবে ব্যবহার করা যাবে।
+
+---
+
+**আল্লাহ আমাদের সবাইকে সঠিক আমল করার তৌফিক দিন। আমীন।**

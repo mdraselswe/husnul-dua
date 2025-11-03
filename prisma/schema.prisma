@@ -1,0 +1,32 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Dua {
+  id            String   @id @default(cuid())
+  titleBengali  String
+  titleEnglish  String?
+  arabic        String
+  transliteration String
+  bengali       String
+  english       String?
+  tags          String   // Comma-separated tags like "headache,body-pain,any-pain"
+  category      String?  // Optional category like "health", "protection", etc.
+  source        String?  // Source reference like "Sahih Bukhari"
+  times         String?  // When to recite (e.g., "3 times", "after Fajr")
+  benefits      String?  // Benefits in Bengali
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([tags])
+  @@index([category])
+}
