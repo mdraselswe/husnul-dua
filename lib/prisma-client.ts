@@ -9,6 +9,11 @@ const globalForPrisma = globalThis as unknown as {
 if (!process.env.DATABASE_URL) {
   const dbPath = path.join(process.cwd(), 'prisma', 'dev.db')
   process.env.DATABASE_URL = `file:${dbPath}`
+} else if (process.env.DATABASE_URL.startsWith('file:./')) {
+  // Convert relative path to absolute path for Next.js
+  const relativePath = process.env.DATABASE_URL.replace('file:', '')
+  const absolutePath = path.join(process.cwd(), relativePath)
+  process.env.DATABASE_URL = `file:${absolutePath}`
 }
 
 export const prisma = globalForPrisma.prisma ?? new PrismaClient({

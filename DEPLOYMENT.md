@@ -1,5 +1,9 @@
 # Deployment Guide - হুসনুল দুআ
 
+## ⚠️ গুরুত্বপূর্ণ
+
+**বিস্তারিত step-by-step guide:** [PRODUCTION-SETUP.md](./PRODUCTION-SETUP.md) দেখুন
+
 ## Production Deployment
 
 এই app production-এ deploy করার জন্য PostgreSQL database প্রয়োজন। SQLite production environment-এ কাজ করে না কারণ file system read-only থাকে।
