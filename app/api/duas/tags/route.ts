@@ -18,10 +18,14 @@ export async function GET() {
     });
 
     return NextResponse.json(Array.from(allTags).sort());
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error fetching tags:", error);
     return NextResponse.json(
-      { error: "Failed to fetch tags" },
+      { 
+        error: "Failed to fetch tags",
+        message: process.env.NODE_ENV === 'development' ? error.message : undefined,
+        details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      },
       { status: 500 }
     );
   }

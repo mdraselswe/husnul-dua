@@ -35,10 +35,14 @@ export async function GET(request: NextRequest) {
     });
 
     return NextResponse.json(duas);
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error fetching duas:", error);
     return NextResponse.json(
-      { error: "Failed to fetch duas" },
+      { 
+        error: "Failed to fetch duas",
+        message: process.env.NODE_ENV === 'development' ? error.message : undefined,
+        hint: error.message?.includes('DATABASE_URL') ? 'DATABASE_URL environment variable not set' : undefined
+      },
       { status: 500 }
     );
   }
@@ -86,10 +90,13 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json(dua, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error creating dua:", error);
     return NextResponse.json(
-      { error: "Failed to create dua" },
+      { 
+        error: "Failed to create dua",
+        message: process.env.NODE_ENV === 'development' ? error.message : undefined
+      },
       { status: 500 }
     );
   }
