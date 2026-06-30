@@ -33,6 +33,10 @@ const config: runtime.GetPrismaClientConfig = {
         "fromEnvVar": null,
         "value": "darwin-arm64",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "rhel-openssl-3.0.x"
       }
     ],
     "previewFeatures": [],
@@ -55,8 +59,8 @@ const config: runtime.GetPrismaClientConfig = {
       }
     }
   },
-  "inlineSchema": "// Production schema using PostgreSQL (Vercel Postgres / Supabase)\n// SQLite does not work on Vercel serverless — see VERCEL-DEPLOYMENT-FIX.md\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../lib/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Dua {\n  id              String   @id @default(cuid())\n  titleBengali    String\n  titleEnglish    String?\n  arabic          String\n  transliteration String\n  bengali         String\n  english         String?\n  tags            String // Comma-separated tags like \"headache,body-pain,any-pain\"\n  category        String? // Optional category like \"health\", \"protection\", etc.\n  source          String? // Source reference like \"Sahih Bukhari\"\n  times           String? // When to recite (e.g., \"3 times\", \"after Fajr\")\n  benefits        String? // Benefits in Bengali\n  createdAt       DateTime @default(now())\n  updatedAt       DateTime @updatedAt\n\n  @@index([tags])\n  @@index([category])\n}\n",
-  "inlineSchemaHash": "d2bcc437b445d6ce50891c79cf10ce86c0f08de6e6b19191d265e778a7d0b1fe",
+  "inlineSchema": "// Production schema using PostgreSQL (Vercel Postgres / Supabase)\n// SQLite does not work on Vercel serverless — see VERCEL-DEPLOYMENT-FIX.md\n\ngenerator client {\n  provider      = \"prisma-client\"\n  output        = \"../lib/prisma\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Dua {\n  id              String   @id @default(cuid())\n  titleBengali    String\n  titleEnglish    String?\n  arabic          String\n  transliteration String\n  bengali         String\n  english         String?\n  tags            String // Comma-separated tags like \"headache,body-pain,any-pain\"\n  category        String? // Optional category like \"health\", \"protection\", etc.\n  source          String? // Source reference like \"Sahih Bukhari\"\n  times           String? // When to recite (e.g., \"3 times\", \"after Fajr\")\n  benefits        String? // Benefits in Bengali\n  createdAt       DateTime @default(now())\n  updatedAt       DateTime @updatedAt\n\n  @@index([tags])\n  @@index([category])\n}\n",
+  "inlineSchemaHash": "139069c86a9fd9a793e0f0014e166fa796996baf588037526db1795e1eebfaf2",
   "copyEngine": true,
   "runtimeDataModel": {
     "models": {},

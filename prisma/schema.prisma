@@ -2,8 +2,9 @@
 // SQLite does not work on Vercel serverless — see VERCEL-DEPLOYMENT-FIX.md
 
 generator client {
-  provider = "prisma-client"
-  output   = "../lib/prisma"
+  provider      = "prisma-client"
+  output        = "../lib/prisma"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
 datasource db {
