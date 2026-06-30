@@ -1,4 +1,5 @@
 import { PrismaClient } from './prisma/client'
+import { PrismaPg } from '@prisma/adapter-pg'
 import path from 'path'
 
 const globalForPrisma = globalThis as unknown as {
@@ -16,7 +17,12 @@ if (!process.env.DATABASE_URL) {
   process.env.DATABASE_URL = `file:${absolutePath}`
 }
 
+// Use the pg driver adapter (queryCompiler) so no Rust query-engine binary is
+// needed — required for Vercel serverless, where the engine binary is dropped.
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
+
 export const prisma = globalForPrisma.prisma ?? new PrismaClient({
+  adapter,
   log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error'],
 })
 
