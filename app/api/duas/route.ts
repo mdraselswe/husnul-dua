@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
       benefits,
     } = body;
 
-    if (!titleBengali || !arabic || !transliteration || !bengali || !tags) {
+    if (!titleBengali || !arabic || !bengali || !tags) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }

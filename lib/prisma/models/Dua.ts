@@ -205,7 +205,7 @@ export type DuaGroupByOutputType = {
   titleBengali: string
   titleEnglish: string | null
   arabic: string
-  transliteration: string
+  transliteration: string | null
   bengali: string
   english: string | null
   tags: string
@@ -243,7 +243,7 @@ export type DuaWhereInput = {
   titleBengali?: Prisma.StringFilter<"Dua"> | string
   titleEnglish?: Prisma.StringNullableFilter<"Dua"> | string | null
   arabic?: Prisma.StringFilter<"Dua"> | string
-  transliteration?: Prisma.StringFilter<"Dua"> | string
+  transliteration?: Prisma.StringNullableFilter<"Dua"> | string | null
   bengali?: Prisma.StringFilter<"Dua"> | string
   english?: Prisma.StringNullableFilter<"Dua"> | string | null
   tags?: Prisma.StringFilter<"Dua"> | string
@@ -260,7 +260,7 @@ export type DuaOrderByWithRelationInput = {
   titleBengali?: Prisma.SortOrder
   titleEnglish?: Prisma.SortOrderInput | Prisma.SortOrder
   arabic?: Prisma.SortOrder
-  transliteration?: Prisma.SortOrder
+  transliteration?: Prisma.SortOrderInput | Prisma.SortOrder
   bengali?: Prisma.SortOrder
   english?: Prisma.SortOrderInput | Prisma.SortOrder
   tags?: Prisma.SortOrder
@@ -280,7 +280,7 @@ export type DuaWhereUniqueInput = Prisma.AtLeast<{
   titleBengali?: Prisma.StringFilter<"Dua"> | string
   titleEnglish?: Prisma.StringNullableFilter<"Dua"> | string | null
   arabic?: Prisma.StringFilter<"Dua"> | string
-  transliteration?: Prisma.StringFilter<"Dua"> | string
+  transliteration?: Prisma.StringNullableFilter<"Dua"> | string | null
   bengali?: Prisma.StringFilter<"Dua"> | string
   english?: Prisma.StringNullableFilter<"Dua"> | string | null
   tags?: Prisma.StringFilter<"Dua"> | string
@@ -297,7 +297,7 @@ export type DuaOrderByWithAggregationInput = {
   titleBengali?: Prisma.SortOrder
   titleEnglish?: Prisma.SortOrderInput | Prisma.SortOrder
   arabic?: Prisma.SortOrder
-  transliteration?: Prisma.SortOrder
+  transliteration?: Prisma.SortOrderInput | Prisma.SortOrder
   bengali?: Prisma.SortOrder
   english?: Prisma.SortOrderInput | Prisma.SortOrder
   tags?: Prisma.SortOrder
@@ -320,7 +320,7 @@ export type DuaScalarWhereWithAggregatesInput = {
   titleBengali?: Prisma.StringWithAggregatesFilter<"Dua"> | string
   titleEnglish?: Prisma.StringNullableWithAggregatesFilter<"Dua"> | string | null
   arabic?: Prisma.StringWithAggregatesFilter<"Dua"> | string
-  transliteration?: Prisma.StringWithAggregatesFilter<"Dua"> | string
+  transliteration?: Prisma.StringNullableWithAggregatesFilter<"Dua"> | string | null
   bengali?: Prisma.StringWithAggregatesFilter<"Dua"> | string
   english?: Prisma.StringNullableWithAggregatesFilter<"Dua"> | string | null
   tags?: Prisma.StringWithAggregatesFilter<"Dua"> | string
@@ -337,7 +337,7 @@ export type DuaCreateInput = {
   titleBengali: string
   titleEnglish?: string | null
   arabic: string
-  transliteration: string
+  transliteration?: string | null
   bengali: string
   english?: string | null
   tags: string
@@ -354,7 +354,7 @@ export type DuaUncheckedCreateInput = {
   titleBengali: string
   titleEnglish?: string | null
   arabic: string
-  transliteration: string
+  transliteration?: string | null
   bengali: string
   english?: string | null
   tags: string
@@ -371,7 +371,7 @@ export type DuaUpdateInput = {
   titleBengali?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   arabic?: Prisma.StringFieldUpdateOperationsInput | string
-  transliteration?: Prisma.StringFieldUpdateOperationsInput | string
+  transliteration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bengali?: Prisma.StringFieldUpdateOperationsInput | string
   english?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StringFieldUpdateOperationsInput | string
@@ -388,7 +388,7 @@ export type DuaUncheckedUpdateInput = {
   titleBengali?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   arabic?: Prisma.StringFieldUpdateOperationsInput | string
-  transliteration?: Prisma.StringFieldUpdateOperationsInput | string
+  transliteration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bengali?: Prisma.StringFieldUpdateOperationsInput | string
   english?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StringFieldUpdateOperationsInput | string
@@ -405,7 +405,7 @@ export type DuaCreateManyInput = {
   titleBengali: string
   titleEnglish?: string | null
   arabic: string
-  transliteration: string
+  transliteration?: string | null
   bengali: string
   english?: string | null
   tags: string
@@ -422,7 +422,7 @@ export type DuaUpdateManyMutationInput = {
   titleBengali?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   arabic?: Prisma.StringFieldUpdateOperationsInput | string
-  transliteration?: Prisma.StringFieldUpdateOperationsInput | string
+  transliteration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bengali?: Prisma.StringFieldUpdateOperationsInput | string
   english?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StringFieldUpdateOperationsInput | string
@@ -439,7 +439,7 @@ export type DuaUncheckedUpdateManyInput = {
   titleBengali?: Prisma.StringFieldUpdateOperationsInput | string
   titleEnglish?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   arabic?: Prisma.StringFieldUpdateOperationsInput | string
-  transliteration?: Prisma.StringFieldUpdateOperationsInput | string
+  transliteration?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bengali?: Prisma.StringFieldUpdateOperationsInput | string
   english?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tags?: Prisma.StringFieldUpdateOperationsInput | string
@@ -594,7 +594,7 @@ export type $DuaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     titleBengali: string
     titleEnglish: string | null
     arabic: string
-    transliteration: string
+    transliteration: string | null
     bengali: string
     english: string | null
     tags: string

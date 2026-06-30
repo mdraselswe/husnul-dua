@@ -36,11 +36,10 @@ export default function AddDuaPage() {
     if (
       !formData.titleBengali ||
       !formData.arabic ||
-      !formData.transliteration ||
       !formData.bengali ||
       !formData.tags
     ) {
-      alert("অনুগ্রহ করে আবশ্যকীয় ক্ষেত্রগুলো পূরণ করুন (শিরোনাম, আরবি, উচ্চারণ, বাংলা, ট্যাগ)");
+      alert("অনুগ্রহ করে আবশ্যকীয় ক্ষেত্রগুলো পূরণ করুন (শিরোনাম, আরবি, বাংলা, ট্যাগ)");
       return;
     }
 
@@ -140,13 +139,12 @@ export default function AddDuaPage() {
 
               <div>
                 <label className="block text-sm font-semibold font-bengali text-gray-700 dark:text-gray-300 mb-2">
-                  উচ্চারণ (ইংরেজিতে) <span className="text-red-500">*</span>
+                  উচ্চারণ (ইংরেজিতে) - ঐচ্ছিক
                 </label>
                 <textarea
                   name="transliteration"
                   value={formData.transliteration}
                   onChange={handleChange}
-                  required
                   rows={2}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white italic"
                   placeholder="Transliteration in English"

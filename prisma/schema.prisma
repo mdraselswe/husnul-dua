@@ -17,7 +17,7 @@ model Dua {
   titleBengali  String
   titleEnglish  String?
   arabic        String
-  transliteration String
+  transliteration String?
   bengali       String
   english       String?
   tags          String   // Comma-separated tags like "headache,body-pain,any-pain"
