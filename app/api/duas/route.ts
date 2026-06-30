@@ -38,9 +38,10 @@ export async function GET(request: NextRequest) {
   } catch (error: any) {
     console.error("Error fetching duas:", error);
     return NextResponse.json(
-      { 
+      {
         error: "Failed to fetch duas",
-        message: process.env.NODE_ENV === 'development' ? error.message : undefined,
+        message: error.message,
+        code: error.code,
         hint: error.message?.includes('DATABASE_URL') ? 'DATABASE_URL environment variable not set' : undefined
       },
       { status: 500 }
