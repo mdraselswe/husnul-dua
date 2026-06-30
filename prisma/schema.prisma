@@ -16,7 +16,7 @@ model Dua {
   id            String   @id @default(cuid())
   titleBengali  String
   titleEnglish  String?
-  arabic        String
+  arabic        String?
   transliteration String?
   bengali       String
   english       String?

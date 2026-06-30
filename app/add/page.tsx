@@ -35,11 +35,10 @@ export default function AddDuaPage() {
     
     if (
       !formData.titleBengali ||
-      !formData.arabic ||
       !formData.bengali ||
       !formData.tags
     ) {
-      alert("অনুগ্রহ করে আবশ্যকীয় ক্ষেত্রগুলো পূরণ করুন (শিরোনাম, আরবি, বাংলা, ট্যাগ)");
+      alert("অনুগ্রহ করে আবশ্যকীয় ক্ষেত্রগুলো পূরণ করুন (শিরোনাম, বাংলা, ট্যাগ)");
       return;
     }
 
@@ -124,13 +123,12 @@ export default function AddDuaPage() {
 
               <div>
                 <label className="block text-sm font-semibold font-bengali text-gray-700 dark:text-gray-300 mb-2">
-                  আরবি <span className="text-red-500">*</span>
+                  আরবি - ঐচ্ছিক
                 </label>
                 <textarea
                   name="arabic"
                   value={formData.arabic}
                   onChange={handleChange}
-                  required
                   rows={3}
                   className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-arabic text-xl text-right"
                   placeholder="আরবি পাঠ এখানে লিখুন"
