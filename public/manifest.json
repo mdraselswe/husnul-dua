@@ -1,24 +1,28 @@
 {
   "name": "হুসনুল দুআ - ইসলামিক আমল ও দুআ",
   "short_name": "হুসনুল দুআ",
-  "description": "ইসলামিক দুআ, আমল ও জিকিরের সংগ্রহ",
+  "description": "ইসলামিক দুআ, আমল ও জিকিরের সংগ্রহ — খুঁজুন, পড়ুন, সংরক্ষণ করুন।",
+  "lang": "bn",
+  "dir": "ltr",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#10b981",
   "orientation": "portrait",
+  "background_color": "#0b1a1f",
+  "theme_color": "#0f766e",
+  "categories": ["lifestyle", "education", "books"],
   "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
     {
-      "src": "/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "name": "নতুন দুআ যোগ করুন",
+      "short_name": "নতুন দুআ",
+      "url": "/add",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
     }
   ]
 }

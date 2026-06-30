@@ -21,19 +21,37 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "হুসনুল দুআ - ইসলামিক আমল ও দুআ",
-  description: "ইসলামিক দুআ, আমল ও জিকিরের সংগ্রহ",
+  applicationName: "হুসনুল দুআ",
+  title: {
+    default: "হুসনুল দুআ - ইসলামিক আমল ও দুআ",
+    template: "%s · হুসনুল দুআ",
+  },
+  description: "ইসলামিক দুআ, আমল ও জিকিরের সংগ্রহ — খুঁজুন, পড়ুন, সংরক্ষণ করুন।",
   manifest: "/manifest.json",
+  icons: {
+    icon: [
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
+    statusBarStyle: "black-translucent",
     title: "হুসনুল দুআ",
   },
+  formatDetection: { telephone: false },
 };
 
 export function generateViewport() {
   return {
-    themeColor: "#10b981",
+    width: "device-width",
+    initialScale: 1,
+    viewportFit: "cover" as const,
+    themeColor: [
+      { media: "(prefers-color-scheme: light)", color: "#0f766e" },
+      { media: "(prefers-color-scheme: dark)", color: "#0b1a1f" },
+    ],
   };
 }
 
