@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_Bengali, Noto_Sans_Arabic, Inter } from "next/font/google";
 import "./globals.css";
+import { AdminProvider } from "@/components/AdminProvider";
 
 const bengali = Noto_Sans_Bengali({
   variable: "--font-bengali",
@@ -42,11 +43,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="bn">
+    <html lang="bn" suppressHydrationWarning>
       <body
+        suppressHydrationWarning
         className={`${bengali.variable} ${arabic.variable} ${inter.variable} antialiased`}
       >
-        {children}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('hd_theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark');}catch(e){}})();`,
+          }}
+        />
+        <AdminProvider>{children}</AdminProvider>
       </body>
     </html>
   );

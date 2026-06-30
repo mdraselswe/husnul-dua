@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma-client";
+import { ADMIN_COOKIE, verifyToken } from "@/lib/auth";
 
 // GET - Search duas
 export async function GET(request: NextRequest) {
@@ -8,8 +9,19 @@ export async function GET(request: NextRequest) {
     const query = searchParams.get("q") || "";
     const tag = searchParams.get("tag") || "";
     const category = searchParams.get("category") || "";
+    const status = searchParams.get("status") || "";
 
-    let where: any = {};
+    const where: any = {};
+
+    // Moderation visibility: public sees only "approved". Pending/all requires admin.
+    if (status === "pending" || status === "all") {
+      if (!(await verifyToken(request.cookies.get(ADMIN_COOKIE)?.value))) {
+        return NextResponse.json({ error: "অননুমোদিত" }, { status: 401 });
+      }
+      if (status === "pending") where.status = "pending";
+    } else {
+      where.status = "approved";
+    }
 
     if (query) {
       where.OR = [
@@ -49,9 +61,14 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST - Add new dua
+// POST - Submit a dua. Anyone may submit; public goes to the pending queue,
+// admin submissions are auto-approved.
 export async function POST(request: NextRequest) {
   try {
+    const isAdmin = await verifyToken(
+      request.cookies.get(ADMIN_COOKIE)?.value
+    );
+
     const body = await request.json();
     const {
       titleBengali,
@@ -87,10 +104,11 @@ export async function POST(request: NextRequest) {
         source,
         times,
         benefits,
+        status: isAdmin ? "approved" : "pending",
       },
     });
 
-    return NextResponse.json(dua, { status: 201 });
+    return NextResponse.json({ ...dua, pending: !isAdmin }, { status: 201 });
   } catch (error: any) {
     console.error("Error creating dua:", error);
     return NextResponse.json(

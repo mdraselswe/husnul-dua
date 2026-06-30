@@ -25,10 +25,15 @@ model Dua {
   source        String?  // Source reference like "Sahih Bukhari"
   times         String?  // When to recite (e.g., "3 times", "after Fajr")
   benefits      String?  // Benefits in Bengali
+  // Moderation: public submissions default to "pending" (set in API handler),
+  // admin-created / approved are "approved". Column default is "approved" so
+  // existing rows stay visible after `prisma db push`.
+  status        String   @default("approved") // "pending" | "approved"
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
   @@index([tags])
   @@index([category])
+  @@index([status])
 }
 
