@@ -1,5 +1,5 @@
-// Local development schema using SQLite
-// To use this, rename this file to schema.prisma temporarily
+// Production schema using PostgreSQL (Vercel Postgres / Supabase)
+// SQLite does not work on Vercel serverless — see VERCEL-DEPLOYMENT-FIX.md
 
 generator client {
   provider = "prisma-client"
@@ -7,7 +7,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 

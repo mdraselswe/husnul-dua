@@ -1246,6 +1246,7 @@ export type DuaCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * The data used to create many Duas.
    */
   data: Prisma.DuaCreateManyInput | Prisma.DuaCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1264,6 +1265,7 @@ export type DuaCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.
    * The data used to create many Duas.
    */
   data: Prisma.DuaCreateManyInput | Prisma.DuaCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
