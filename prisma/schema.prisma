@@ -25,6 +25,8 @@ model Dua {
   source        String?  // Source reference like "Sahih Bukhari"
   times         String?  // When to recite (e.g., "3 times", "after Fajr")
   benefits      String?  // Benefits in Bengali
+  videoUrl      String?  // Link to a video about the dua's virtue (fojilot)
+  articleUrl    String?  // Link to an article about the dua's virtue
   // Moderation: public submissions default to "pending" (set in API handler),
   // admin-created / approved are "approved". Column default is "approved" so
   // existing rows stay visible after `prisma db push`.

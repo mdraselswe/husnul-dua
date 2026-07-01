@@ -82,6 +82,8 @@ export async function POST(request: NextRequest) {
       source,
       times,
       benefits,
+      videoUrl,
+      articleUrl,
     } = body;
 
     if (!titleBengali || !bengali || !tags) {
@@ -104,6 +106,8 @@ export async function POST(request: NextRequest) {
         source,
         times,
         benefits,
+        videoUrl,
+        articleUrl,
         status: isAdmin ? "approved" : "pending",
       },
     });

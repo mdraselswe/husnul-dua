@@ -36,6 +36,8 @@ export type DuaMinAggregateOutputType = {
   source: string | null
   times: string | null
   benefits: string | null
+  videoUrl: string | null
+  articleUrl: string | null
   status: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -54,6 +56,8 @@ export type DuaMaxAggregateOutputType = {
   source: string | null
   times: string | null
   benefits: string | null
+  videoUrl: string | null
+  articleUrl: string | null
   status: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -72,6 +76,8 @@ export type DuaCountAggregateOutputType = {
   source: number
   times: number
   benefits: number
+  videoUrl: number
+  articleUrl: number
   status: number
   createdAt: number
   updatedAt: number
@@ -92,6 +98,8 @@ export type DuaMinAggregateInputType = {
   source?: true
   times?: true
   benefits?: true
+  videoUrl?: true
+  articleUrl?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -110,6 +118,8 @@ export type DuaMaxAggregateInputType = {
   source?: true
   times?: true
   benefits?: true
+  videoUrl?: true
+  articleUrl?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -128,6 +138,8 @@ export type DuaCountAggregateInputType = {
   source?: true
   times?: true
   benefits?: true
+  videoUrl?: true
+  articleUrl?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -219,6 +231,8 @@ export type DuaGroupByOutputType = {
   source: string | null
   times: string | null
   benefits: string | null
+  videoUrl: string | null
+  articleUrl: string | null
   status: string
   createdAt: Date
   updatedAt: Date
@@ -258,6 +272,8 @@ export type DuaWhereInput = {
   source?: Prisma.StringNullableFilter<"Dua"> | string | null
   times?: Prisma.StringNullableFilter<"Dua"> | string | null
   benefits?: Prisma.StringNullableFilter<"Dua"> | string | null
+  videoUrl?: Prisma.StringNullableFilter<"Dua"> | string | null
+  articleUrl?: Prisma.StringNullableFilter<"Dua"> | string | null
   status?: Prisma.StringFilter<"Dua"> | string
   createdAt?: Prisma.DateTimeFilter<"Dua"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Dua"> | Date | string
@@ -276,6 +292,8 @@ export type DuaOrderByWithRelationInput = {
   source?: Prisma.SortOrderInput | Prisma.SortOrder
   times?: Prisma.SortOrderInput | Prisma.SortOrder
   benefits?: Prisma.SortOrderInput | Prisma.SortOrder
+  videoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  articleUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -297,6 +315,8 @@ export type DuaWhereUniqueInput = Prisma.AtLeast<{
   source?: Prisma.StringNullableFilter<"Dua"> | string | null
   times?: Prisma.StringNullableFilter<"Dua"> | string | null
   benefits?: Prisma.StringNullableFilter<"Dua"> | string | null
+  videoUrl?: Prisma.StringNullableFilter<"Dua"> | string | null
+  articleUrl?: Prisma.StringNullableFilter<"Dua"> | string | null
   status?: Prisma.StringFilter<"Dua"> | string
   createdAt?: Prisma.DateTimeFilter<"Dua"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Dua"> | Date | string
@@ -315,6 +335,8 @@ export type DuaOrderByWithAggregationInput = {
   source?: Prisma.SortOrderInput | Prisma.SortOrder
   times?: Prisma.SortOrderInput | Prisma.SortOrder
   benefits?: Prisma.SortOrderInput | Prisma.SortOrder
+  videoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  articleUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -339,6 +361,8 @@ export type DuaScalarWhereWithAggregatesInput = {
   source?: Prisma.StringNullableWithAggregatesFilter<"Dua"> | string | null
   times?: Prisma.StringNullableWithAggregatesFilter<"Dua"> | string | null
   benefits?: Prisma.StringNullableWithAggregatesFilter<"Dua"> | string | null
+  videoUrl?: Prisma.StringNullableWithAggregatesFilter<"Dua"> | string | null
+  articleUrl?: Prisma.StringNullableWithAggregatesFilter<"Dua"> | string | null
   status?: Prisma.StringWithAggregatesFilter<"Dua"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Dua"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Dua"> | Date | string
@@ -357,6 +381,8 @@ export type DuaCreateInput = {
   source?: string | null
   times?: string | null
   benefits?: string | null
+  videoUrl?: string | null
+  articleUrl?: string | null
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -375,6 +401,8 @@ export type DuaUncheckedCreateInput = {
   source?: string | null
   times?: string | null
   benefits?: string | null
+  videoUrl?: string | null
+  articleUrl?: string | null
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -393,6 +421,8 @@ export type DuaUpdateInput = {
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   times?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   benefits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  articleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -411,6 +441,8 @@ export type DuaUncheckedUpdateInput = {
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   times?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   benefits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  articleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -429,6 +461,8 @@ export type DuaCreateManyInput = {
   source?: string | null
   times?: string | null
   benefits?: string | null
+  videoUrl?: string | null
+  articleUrl?: string | null
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -447,6 +481,8 @@ export type DuaUpdateManyMutationInput = {
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   times?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   benefits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  articleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -465,6 +501,8 @@ export type DuaUncheckedUpdateManyInput = {
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   times?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   benefits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  articleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -483,6 +521,8 @@ export type DuaCountOrderByAggregateInput = {
   source?: Prisma.SortOrder
   times?: Prisma.SortOrder
   benefits?: Prisma.SortOrder
+  videoUrl?: Prisma.SortOrder
+  articleUrl?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -501,6 +541,8 @@ export type DuaMaxOrderByAggregateInput = {
   source?: Prisma.SortOrder
   times?: Prisma.SortOrder
   benefits?: Prisma.SortOrder
+  videoUrl?: Prisma.SortOrder
+  articleUrl?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -519,6 +561,8 @@ export type DuaMinOrderByAggregateInput = {
   source?: Prisma.SortOrder
   times?: Prisma.SortOrder
   benefits?: Prisma.SortOrder
+  videoUrl?: Prisma.SortOrder
+  articleUrl?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -551,6 +595,8 @@ export type DuaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   source?: boolean
   times?: boolean
   benefits?: boolean
+  videoUrl?: boolean
+  articleUrl?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -569,6 +615,8 @@ export type DuaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   source?: boolean
   times?: boolean
   benefits?: boolean
+  videoUrl?: boolean
+  articleUrl?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -587,6 +635,8 @@ export type DuaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   source?: boolean
   times?: boolean
   benefits?: boolean
+  videoUrl?: boolean
+  articleUrl?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -605,12 +655,14 @@ export type DuaSelectScalar = {
   source?: boolean
   times?: boolean
   benefits?: boolean
+  videoUrl?: boolean
+  articleUrl?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type DuaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "titleBengali" | "titleEnglish" | "arabic" | "transliteration" | "bengali" | "english" | "tags" | "category" | "source" | "times" | "benefits" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["dua"]>
+export type DuaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "titleBengali" | "titleEnglish" | "arabic" | "transliteration" | "bengali" | "english" | "tags" | "category" | "source" | "times" | "benefits" | "videoUrl" | "articleUrl" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["dua"]>
 
 export type $DuaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Dua"
@@ -628,6 +680,8 @@ export type $DuaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     source: string | null
     times: string | null
     benefits: string | null
+    videoUrl: string | null
+    articleUrl: string | null
     status: string
     createdAt: Date
     updatedAt: Date
@@ -1066,6 +1120,8 @@ export interface DuaFieldRefs {
   readonly source: Prisma.FieldRef<"Dua", 'String'>
   readonly times: Prisma.FieldRef<"Dua", 'String'>
   readonly benefits: Prisma.FieldRef<"Dua", 'String'>
+  readonly videoUrl: Prisma.FieldRef<"Dua", 'String'>
+  readonly articleUrl: Prisma.FieldRef<"Dua", 'String'>
   readonly status: Prisma.FieldRef<"Dua", 'String'>
   readonly createdAt: Prisma.FieldRef<"Dua", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Dua", 'DateTime'>

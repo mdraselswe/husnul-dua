@@ -49,6 +49,8 @@ export async function PUT(
       source,
       times,
       benefits,
+      videoUrl,
+      articleUrl,
     } = body;
 
     if (!titleBengali || !bengali || !tags) {
@@ -72,6 +74,8 @@ export async function PUT(
         source,
         times,
         benefits,
+        videoUrl,
+        articleUrl,
       },
     });
     return NextResponse.json(dua);

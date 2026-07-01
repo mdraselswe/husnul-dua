@@ -6,8 +6,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
   Check,
   Copy,
+  FileText,
   Heart,
   Pencil,
+  PlayCircle,
   RotateCcw,
   Share2,
   Trash2,
@@ -236,6 +238,34 @@ export default function DuaCard({ dua, index = 0 }: { dua: Dua; index?: number }
                 <span className="font-semibold text-foreground">ফায়েদা:</span>{" "}
                 {dua.benefits}
               </p>
+            )}
+          </div>
+        )}
+
+        {/* Fojilot links */}
+        {(dua.videoUrl || dua.articleUrl) && (
+          <div className="flex flex-wrap gap-2 pt-1">
+            {dua.videoUrl && (
+              <a
+                href={dua.videoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 rounded-full bg-red-50 px-3 py-1.5 font-bengali text-sm font-medium text-red-700 transition hover:bg-red-100 dark:bg-red-950/40 dark:text-red-300 dark:hover:bg-red-950/70"
+              >
+                <PlayCircle className="h-4 w-4" />
+                ভিডিও দেখুন
+              </a>
+            )}
+            {dua.articleUrl && (
+              <a
+                href={dua.articleUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 rounded-full bg-primary-soft px-3 py-1.5 font-bengali text-sm font-medium text-primary-strong transition hover:brightness-95"
+              >
+                <FileText className="h-4 w-4" />
+                আর্টিকেল পড়ুন
+              </a>
             )}
           </div>
         )}

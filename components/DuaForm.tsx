@@ -20,6 +20,8 @@ const EMPTY: DuaFormData = {
   source: "",
   times: "",
   benefits: "",
+  videoUrl: "",
+  articleUrl: "",
 };
 
 const fieldClass =
@@ -264,6 +266,28 @@ export default function DuaForm({
               rows={3}
               className={`${fieldClass} font-bengali`}
               placeholder="এই দুআ পড়ার ফায়েদা সম্পর্কে লিখুন"
+            />
+          </div>
+          <div>
+            <Label>ভিডিও লিংক (ফজিলত) — ঐচ্ছিক</Label>
+            <input
+              type="url"
+              name="videoUrl"
+              value={form.videoUrl}
+              onChange={handleChange}
+              className={fieldClass}
+              placeholder="https://youtube.com/..."
+            />
+          </div>
+          <div>
+            <Label>আর্টিকেল লিংক (ফজিলত) — ঐচ্ছিক</Label>
+            <input
+              type="url"
+              name="articleUrl"
+              value={form.articleUrl}
+              onChange={handleChange}
+              className={fieldClass}
+              placeholder="https://..."
             />
           </div>
         </div>

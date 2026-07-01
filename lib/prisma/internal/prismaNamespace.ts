@@ -535,6 +535,8 @@ export const DuaScalarFieldEnum = {
   source: 'source',
   times: 'times',
   benefits: 'benefits',
+  videoUrl: 'videoUrl',
+  articleUrl: 'articleUrl',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

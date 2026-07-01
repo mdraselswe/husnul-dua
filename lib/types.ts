@@ -11,6 +11,8 @@ export interface Dua {
   source?: string;
   times?: string;
   benefits?: string;
+  videoUrl?: string;
+  articleUrl?: string;
   status?: string;
 }
 
