@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ADMIN_COOKIE, verifyToken } from "@/lib/auth";
 
-// Protect admin-only PAGES. /add is public (open submissions). Write APIs do
-// their own check in the route handlers.
-const PROTECTED = [/^\/edit(\/|$)/, /^\/admin(\/|$)/];
+// Protect admin-only PAGES. /add and /edit are public (open submissions and
+// token-based owner edits); write APIs enforce auth in the route handlers.
+const PROTECTED = [/^\/admin(\/|$)/];
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -19,5 +19,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/edit/:path*", "/admin/:path*"],
+  matcher: ["/admin/:path*"],
 };

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { BookOpen, BookOpenCheck, ClipboardCheck, LogIn, LogOut, Plus } from "lucide-react";
+import { BookOpen, BookOpenCheck, LayoutDashboard, LogIn, LogOut, Plus, NotebookText } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import FontSizeControl from "./FontSizeControl";
 import { useAdmin } from "./AdminProvider";
@@ -62,14 +62,21 @@ export default function Header({ subtitle }: { subtitle?: string }) {
             <Plus className="h-4 w-4" />
             <span className="hidden sm:inline">নতুন দুআ</span>
           </Link>
+          <Link
+            href="/my"
+            aria-label="আমার দুআ"
+            className="grid h-10 w-10 place-items-center rounded-full bg-white/15 transition hover:bg-white/25 active:scale-90"
+          >
+            <NotebookText className="h-5 w-5" />
+          </Link>
 
           {isAdmin && (
             <Link
-              href="/admin/pending"
-              aria-label="পর্যালোচনা"
+              href="/admin"
+              aria-label="অ্যাডমিন ড্যাশবোর্ড"
               className="relative grid h-10 w-10 place-items-center rounded-full bg-white/15 transition hover:bg-white/25 active:scale-90"
             >
-              <ClipboardCheck className="h-5 w-5" />
+              <LayoutDashboard className="h-5 w-5" />
               {pending > 0 && (
                 <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-accent px-1 text-[11px] font-bold text-[#1a1304]">
                   {pending}

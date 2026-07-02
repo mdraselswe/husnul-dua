@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown, Plus, X } from "lucide-react";
+import { PRESET_CATEGORIES, categoryIcon } from "@/lib/categoryIcons";
 
 const norm = (s: string) => s.trim().replace(/\s+/g, " ");
 const key = (s: string) => norm(s).toLowerCase();
@@ -17,11 +18,25 @@ export default function CategorySelect({
   const [open, setOpen] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
 
+  // Merge preset suggestions with categories already used by duas (deduped).
+  const merge = (apiCats: string[]) => {
+    const seen = new Set<string>();
+    const out: string[] = [];
+    for (const c of [...PRESET_CATEGORIES, ...apiCats]) {
+      const n = norm(c);
+      if (!n || seen.has(key(n))) continue;
+      seen.add(key(n));
+      out.push(n);
+    }
+    return out;
+  };
+
   useEffect(() => {
     fetch("/api/duas/categories")
       .then((r) => r.json())
-      .then((d) => setAll(Array.isArray(d) ? d : []))
-      .catch(() => setAll([]));
+      .then((d) => setAll(merge(Array.isArray(d) ? d : [])))
+      .catch(() => setAll(merge([])));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -97,8 +112,9 @@ export default function CategorySelect({
               key={key(c)}
               type="button"
               onClick={() => choose(c)}
-              className="block w-full rounded-lg px-3 py-2 text-left font-bengali text-sm text-foreground transition hover:bg-surface-2"
+              className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left font-bengali text-sm text-foreground transition hover:bg-surface-2"
             >
+              <span aria-hidden>{categoryIcon(c)}</span>
               {c}
             </button>
           ))}

@@ -89,6 +89,7 @@ export const DuaScalarFieldEnum = {
   segments: 'segments',
   status: 'status',
   rejectReason: 'rejectReason',
+  editToken: 'editToken',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

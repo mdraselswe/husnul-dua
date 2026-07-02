@@ -13,6 +13,7 @@ export default async function Home() {
       orderBy: { createdAt: "desc" },
     });
     duas = JSON.parse(JSON.stringify(rows));
+    duas.forEach((d) => delete (d as { editToken?: string }).editToken);
   } catch (e) {
     console.error("Home fetch failed:", e);
   }

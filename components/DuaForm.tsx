@@ -7,6 +7,7 @@ import type { DuaFormData, DuaSegment } from "@/lib/types";
 import TagInput from "./TagInput";
 import CategorySelect from "./CategorySelect";
 import { useAdmin } from "./AdminProvider";
+import { addMyDua } from "./myDuas";
 
 const EMPTY: DuaFormData = {
   titleBengali: "",
@@ -43,9 +44,11 @@ function Label({ children }: { children: React.ReactNode }) {
 export default function DuaForm({
   initial,
   duaId,
+  editToken,
 }: {
   initial?: DuaFormData;
   duaId?: string;
+  editToken?: string;
 }) {
   const router = useRouter();
   const { isAdmin } = useAdmin();
@@ -92,19 +95,32 @@ export default function DuaForm({
         {
           method: isEdit ? "PUT" : "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
+          body: JSON.stringify(editToken ? { ...form, editToken } : form),
         }
       );
       if (res.ok) {
         const data = await res.json().catch(() => ({}));
-        // Admin edits/creates land in the list immediately → go home.
-        // Public submissions are pending review → show a thank-you screen.
-        if (isEdit || isAdmin || !data.pending) {
-          router.push("/");
-          router.refresh();
-        } else {
+        // New public submission → save ownership locally + thank-you screen.
+        if (!isEdit && data.pending) {
+          if (data.id && data.editToken) {
+            addMyDua({
+              id: data.id,
+              editToken: data.editToken,
+              title: form.titleBengali || "দুআ",
+              at: Date.now(),
+            });
+          }
           setSubmitted(true);
+          return;
         }
+        // Owner editing their own pending dua → back to "my duas".
+        if (isEdit && editToken && !isAdmin) {
+          router.push("/my");
+          router.refresh();
+          return;
+        }
+        router.push("/");
+        router.refresh();
       } else {
         const data = await res.json().catch(() => ({}));
         setError(data.error || "সংরক্ষণে সমস্যা হয়েছে।");
@@ -125,9 +141,10 @@ export default function DuaForm({
         </h2>
         <p className="mx-auto mb-6 max-w-md font-bengali text-muted">
           আপনার দুআটি পর্যালোচনার জন্য পাঠানো হয়েছে। অ্যাডমিন অনুমোদন করলে এটি
-          তালিকায় দেখা যাবে।
+          তালিকায় দেখা যাবে। ততক্ষণ &ldquo;আমার দুআ&rdquo; থেকে দেখতে ও সম্পাদনা
+          করতে পারবেন।
         </p>
-        <div className="flex justify-center gap-3">
+        <div className="flex flex-wrap justify-center gap-3">
           <button
             onClick={() => {
               setForm(EMPTY);
@@ -138,10 +155,16 @@ export default function DuaForm({
             আরেকটি যোগ করুন
           </button>
           <button
-            onClick={() => router.push("/")}
+            onClick={() => router.push("/my")}
             className="rounded-xl bg-primary px-5 py-2.5 font-bengali font-semibold text-primary-fg transition hover:bg-primary-strong"
           >
-            হোমে ফিরুন
+            আমার দুআ দেখুন
+          </button>
+          <button
+            onClick={() => router.push("/")}
+            className="rounded-xl bg-surface-2 px-5 py-2.5 font-bengali font-semibold text-foreground transition hover:opacity-80"
+          >
+            হোমে
           </button>
         </div>
       </div>

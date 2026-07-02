@@ -44,6 +44,7 @@ export type DuaMinAggregateOutputType = {
   articleUrl: string | null
   status: string | null
   rejectReason: string | null
+  editToken: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -69,6 +70,7 @@ export type DuaMaxAggregateOutputType = {
   articleUrl: string | null
   status: string | null
   rejectReason: string | null
+  editToken: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -95,6 +97,7 @@ export type DuaCountAggregateOutputType = {
   segments: number
   status: number
   rejectReason: number
+  editToken: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -122,6 +125,7 @@ export type DuaMinAggregateInputType = {
   articleUrl?: true
   status?: true
   rejectReason?: true
+  editToken?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -147,6 +151,7 @@ export type DuaMaxAggregateInputType = {
   articleUrl?: true
   status?: true
   rejectReason?: true
+  editToken?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -173,6 +178,7 @@ export type DuaCountAggregateInputType = {
   segments?: true
   status?: true
   rejectReason?: true
+  editToken?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -272,6 +278,7 @@ export type DuaGroupByOutputType = {
   segments: runtime.JsonValue | null
   status: string
   rejectReason: string | null
+  editToken: string | null
   createdAt: Date
   updatedAt: Date
   _count: DuaCountAggregateOutputType | null
@@ -319,6 +326,7 @@ export type DuaWhereInput = {
   segments?: Prisma.JsonNullableFilter<"Dua">
   status?: Prisma.StringFilter<"Dua"> | string
   rejectReason?: Prisma.StringNullableFilter<"Dua"> | string | null
+  editToken?: Prisma.StringNullableFilter<"Dua"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Dua"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Dua"> | Date | string
 }
@@ -345,6 +353,7 @@ export type DuaOrderByWithRelationInput = {
   segments?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   rejectReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  editToken?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -374,6 +383,7 @@ export type DuaWhereUniqueInput = Prisma.AtLeast<{
   segments?: Prisma.JsonNullableFilter<"Dua">
   status?: Prisma.StringFilter<"Dua"> | string
   rejectReason?: Prisma.StringNullableFilter<"Dua"> | string | null
+  editToken?: Prisma.StringNullableFilter<"Dua"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Dua"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Dua"> | Date | string
 }, "id">
@@ -400,6 +410,7 @@ export type DuaOrderByWithAggregationInput = {
   segments?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   rejectReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  editToken?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.DuaCountOrderByAggregateInput
@@ -432,6 +443,7 @@ export type DuaScalarWhereWithAggregatesInput = {
   segments?: Prisma.JsonNullableWithAggregatesFilter<"Dua">
   status?: Prisma.StringWithAggregatesFilter<"Dua"> | string
   rejectReason?: Prisma.StringNullableWithAggregatesFilter<"Dua"> | string | null
+  editToken?: Prisma.StringNullableWithAggregatesFilter<"Dua"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Dua"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Dua"> | Date | string
 }
@@ -458,6 +470,7 @@ export type DuaCreateInput = {
   segments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: string
   rejectReason?: string | null
+  editToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -484,6 +497,7 @@ export type DuaUncheckedCreateInput = {
   segments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: string
   rejectReason?: string | null
+  editToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -510,6 +524,7 @@ export type DuaUpdateInput = {
   segments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.StringFieldUpdateOperationsInput | string
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -536,6 +551,7 @@ export type DuaUncheckedUpdateInput = {
   segments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.StringFieldUpdateOperationsInput | string
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -562,6 +578,7 @@ export type DuaCreateManyInput = {
   segments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: string
   rejectReason?: string | null
+  editToken?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -588,6 +605,7 @@ export type DuaUpdateManyMutationInput = {
   segments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.StringFieldUpdateOperationsInput | string
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -614,6 +632,7 @@ export type DuaUncheckedUpdateManyInput = {
   segments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.StringFieldUpdateOperationsInput | string
   rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  editToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -640,6 +659,7 @@ export type DuaCountOrderByAggregateInput = {
   segments?: Prisma.SortOrder
   status?: Prisma.SortOrder
   rejectReason?: Prisma.SortOrder
+  editToken?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -665,6 +685,7 @@ export type DuaMaxOrderByAggregateInput = {
   articleUrl?: Prisma.SortOrder
   status?: Prisma.SortOrder
   rejectReason?: Prisma.SortOrder
+  editToken?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -690,6 +711,7 @@ export type DuaMinOrderByAggregateInput = {
   articleUrl?: Prisma.SortOrder
   status?: Prisma.SortOrder
   rejectReason?: Prisma.SortOrder
+  editToken?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -730,6 +752,7 @@ export type DuaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   segments?: boolean
   status?: boolean
   rejectReason?: boolean
+  editToken?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["dua"]>
@@ -756,6 +779,7 @@ export type DuaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   segments?: boolean
   status?: boolean
   rejectReason?: boolean
+  editToken?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["dua"]>
@@ -782,6 +806,7 @@ export type DuaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   segments?: boolean
   status?: boolean
   rejectReason?: boolean
+  editToken?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["dua"]>
@@ -808,11 +833,12 @@ export type DuaSelectScalar = {
   segments?: boolean
   status?: boolean
   rejectReason?: boolean
+  editToken?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type DuaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "titleBengali" | "titleEnglish" | "arabic" | "transliteration" | "bengali" | "english" | "tags" | "category" | "source" | "times" | "benefits" | "fojilot" | "rules" | "context" | "quranRef" | "videoUrl" | "articleUrl" | "segments" | "status" | "rejectReason" | "createdAt" | "updatedAt", ExtArgs["result"]["dua"]>
+export type DuaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "titleBengali" | "titleEnglish" | "arabic" | "transliteration" | "bengali" | "english" | "tags" | "category" | "source" | "times" | "benefits" | "fojilot" | "rules" | "context" | "quranRef" | "videoUrl" | "articleUrl" | "segments" | "status" | "rejectReason" | "editToken" | "createdAt" | "updatedAt", ExtArgs["result"]["dua"]>
 
 export type $DuaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Dua"
@@ -839,6 +865,7 @@ export type $DuaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     segments: runtime.JsonValue | null
     status: string
     rejectReason: string | null
+    editToken: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["dua"]>
@@ -1285,6 +1312,7 @@ export interface DuaFieldRefs {
   readonly segments: Prisma.FieldRef<"Dua", 'Json'>
   readonly status: Prisma.FieldRef<"Dua", 'String'>
   readonly rejectReason: Prisma.FieldRef<"Dua", 'String'>
+  readonly editToken: Prisma.FieldRef<"Dua", 'String'>
   readonly createdAt: Prisma.FieldRef<"Dua", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Dua", 'DateTime'>
 }

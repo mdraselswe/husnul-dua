@@ -65,6 +65,10 @@ export async function GET(request: NextRequest) {
       orderBy: { createdAt: "desc" },
     });
 
+    // Never expose the private edit token in list responses.
+    duas.forEach((d) => {
+      delete (d as { editToken?: string | null }).editToken;
+    });
     return NextResponse.json(duas);
   } catch (error) {
     console.error("Error fetching duas:", error);
@@ -145,10 +149,15 @@ export async function POST(request: NextRequest) {
         articleUrl,
         segments: cleanSegments(segments),
         status: isAdmin ? "approved" : "pending",
+        // Anonymous submitters get a secret token to view/edit their pending dua.
+        editToken: isAdmin ? null : crypto.randomUUID(),
       },
     });
 
-    return NextResponse.json({ ...dua, pending: !isAdmin }, { status: 201 });
+    return NextResponse.json(
+      { id: dua.id, editToken: dua.editToken, pending: !isAdmin },
+      { status: 201 }
+    );
   } catch (error) {
     console.error("Error creating dua:", error);
     return NextResponse.json(

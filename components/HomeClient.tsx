@@ -8,6 +8,7 @@ import SearchBar from "@/components/SearchBar";
 import DuaCard from "@/components/DuaCard";
 import Header from "@/components/Header";
 import PrayerTimes from "@/components/PrayerTimes";
+import ChipCarousel from "@/components/ChipCarousel";
 import { useFavorites } from "@/components/useFavorites";
 import { useStreak } from "@/components/useStreak";
 import { categoryIcon } from "@/lib/categoryIcons";
@@ -29,7 +30,7 @@ function Chip({
     <motion.button
       whileTap={{ scale: 0.93 }}
       onClick={onClick}
-      className={`relative shrink-0 whitespace-nowrap rounded-full px-4 py-2 font-bengali text-sm font-medium transition ${
+      className={`relative shrink-0 snap-start whitespace-nowrap rounded-full px-4 py-2 font-bengali text-sm font-medium transition ${
         active ? "text-primary-fg" : "bg-surface/70 text-muted ring-1 ring-border hover:text-foreground"
       }`}
     >
@@ -195,7 +196,7 @@ export default function HomeClient({ initial }: { initial: Dua[] }) {
         </div>
 
         {/* Favorites + categories */}
-        <div className="mb-3 flex flex-wrap gap-2">
+        <ChipCarousel className="mb-3">
           <Chip active={favOnly} onClick={() => setFavOnly((v) => !v)}>
             <Heart className={`h-4 w-4 ${favOnly ? "fill-current" : ""}`} />
             প্রিয় {favorites.length > 0 && `(${favorites.length})`}
@@ -206,11 +207,11 @@ export default function HomeClient({ initial }: { initial: Dua[] }) {
               {c}
             </Chip>
           ))}
-        </div>
+        </ChipCarousel>
 
         {/* Tags */}
         {tags.length > 0 && (
-          <div className="mb-6 flex flex-wrap gap-2">
+          <ChipCarousel className="mb-6">
             <Chip pill="pill-tag" active={!tag} onClick={() => setTag("")}>
               সব
             </Chip>
@@ -219,7 +220,7 @@ export default function HomeClient({ initial }: { initial: Dua[] }) {
                 {t}
               </Chip>
             ))}
-          </div>
+          </ChipCarousel>
         )}
 
         {/* Empty */}

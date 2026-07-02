@@ -8,6 +8,7 @@ import {
   FileX,
   Layers,
   Plus,
+  Tags,
 } from "lucide-react";
 import { prisma } from "@/lib/prisma-client";
 
@@ -109,6 +110,16 @@ export default async function AdminDashboard() {
             <Plus className="h-6 w-6 text-primary" />
             <span className="font-bengali font-semibold text-foreground">
               নতুন দুআ যোগ
+            </span>
+          </Link>
+
+          <Link
+            href="/admin/taxonomy"
+            className="glass flex items-center gap-3 rounded-2xl px-5 py-4 transition hover:shadow-md"
+          >
+            <Tags className="h-6 w-6 text-primary" />
+            <span className="font-bengali font-semibold text-foreground">
+              বিভাগ ও ট্যাগ সম্পাদনা
             </span>
           </Link>
 

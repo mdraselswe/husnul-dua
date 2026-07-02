@@ -4,6 +4,7 @@ import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import DuaForm from "@/components/DuaForm";
+import { tokenFor } from "@/components/myDuas";
 import type { DuaFormData } from "@/lib/types";
 
 export default function EditDuaPage({
@@ -15,8 +16,10 @@ export default function EditDuaPage({
   const router = useRouter();
   const [data, setData] = useState<DuaFormData | null>(null);
   const [notFound, setNotFound] = useState(false);
+  const [token, setToken] = useState<string | undefined>(undefined);
 
   useEffect(() => {
+    setToken(tokenFor(id));
     fetch(`/api/duas/${id}`)
       .then((r) => (r.ok ? r.json() : Promise.reject()))
       .then((d) => setData(d))
@@ -47,7 +50,7 @@ export default function EditDuaPage({
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
           </div>
         ) : (
-          <DuaForm initial={data} duaId={id} />
+          <DuaForm initial={data} duaId={id} editToken={token} />
         )}
       </main>
     </div>

@@ -12,7 +12,9 @@ async function getDua(id: string): Promise<Dua | null> {
   try {
     const dua = await prisma.dua.findUnique({ where: { id } });
     if (!dua || dua.status !== "approved") return null;
-    return JSON.parse(JSON.stringify(dua));
+    const plain = JSON.parse(JSON.stringify(dua));
+    delete plain.editToken;
+    return plain;
   } catch {
     return null;
   }

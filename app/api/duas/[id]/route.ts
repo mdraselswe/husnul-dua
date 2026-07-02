@@ -21,6 +21,7 @@ export async function GET(
     if (!dua) {
       return NextResponse.json({ error: "দুআ পাওয়া যায়নি" }, { status: 404 });
     }
+    delete (dua as { editToken?: string | null }).editToken;
     return NextResponse.json(dua);
   } catch (error) {
     return NextResponse.json(
@@ -36,11 +37,26 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    if (!(await isAdmin(request))) {
-      return NextResponse.json({ error: "অননুমোদিত" }, { status: 401 });
-    }
     const { id } = await params;
     const body = await request.json();
+
+    // Admin can edit anything; an anonymous submitter can edit their own dua
+    // while it is still pending, using the edit token they received on submit.
+    const admin = await isAdmin(request);
+    const existing = await prisma.dua.findUnique({ where: { id } });
+    if (!existing) {
+      return NextResponse.json({ error: "দুআ পাওয়া যায়নি" }, { status: 404 });
+    }
+    const ownerOk =
+      !admin &&
+      !!body.editToken &&
+      !!existing.editToken &&
+      body.editToken === existing.editToken &&
+      existing.status === "pending";
+    if (!admin && !ownerOk) {
+      return NextResponse.json({ error: "অননুমোদিত" }, { status: 401 });
+    }
+
     const {
       titleBengali,
       titleEnglish,
@@ -92,6 +108,7 @@ export async function PUT(
         segments: cleanSegments(segments),
       },
     });
+    delete (dua as { editToken?: string | null }).editToken;
     return NextResponse.json(dua);
   } catch (error) {
     if (errCode(error) === "P2025") {
