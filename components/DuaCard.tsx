@@ -14,7 +14,7 @@ import {
   Share2,
   Trash2,
 } from "lucide-react";
-import type { Dua } from "@/lib/types";
+import type { Dua, DuaSegment } from "@/lib/types";
 import { useFavorites } from "./useFavorites";
 import { useAdmin } from "./AdminProvider";
 
@@ -42,6 +42,23 @@ export default function DuaCard({ dua, index = 0 }: { dua: Dua; index?: number }
   const [deleting, setDeleting] = useState(false);
   const [burst, setBurst] = useState(false);
   const target = parseTarget(dua.times);
+
+  const segments: DuaSegment[] = Array.isArray(dua.segments)
+    ? (dua.segments as DuaSegment[])
+    : [];
+  const hasMulti = segments.length > 0;
+
+  // Primary dua is block #1; segments follow. Each block renders uniformly
+  // with its OWN source, so it's clear which source belongs to which dua.
+  const blocks: DuaSegment[] = [
+    {
+      arabic: dua.arabic,
+      transliteration: dua.transliteration,
+      bengali: dua.bengali,
+      source: dua.source,
+    },
+    ...segments,
+  ];
 
   useEffect(() => {
     try {
@@ -74,6 +91,11 @@ export default function DuaCard({ dua, index = 0 }: { dua: Dua; index?: number }
     dua.transliteration,
     dua.bengali,
     dua.source ? `— ${dua.source}` : "",
+    ...segments.flatMap((s) =>
+      [s.arabic, s.transliteration, s.bengali, s.source ? `— ${s.source}` : ""].filter(
+        Boolean
+      )
+    ),
   ]
     .filter(Boolean)
     .join("\n");
@@ -177,30 +199,47 @@ export default function DuaCard({ dua, index = 0 }: { dua: Dua; index?: number }
         </div>
       </div>
 
-      <div className="space-y-4 px-5 py-5">
-        {dua.arabic && (
-          <p className="font-arabic text-3xl leading-[2.2] text-foreground">
-            {dua.arabic}
-          </p>
-        )}
-
-        {dua.transliteration && (
-          <div className="rounded-xl bg-surface-2/70 px-4 py-3">
-            <p className="italic leading-relaxed text-muted">
-              {dua.transliteration}
-            </p>
+      <div className="space-y-5 px-5 py-5">
+        {blocks.map((b, i) => (
+          <div
+            key={i}
+            className={`space-y-3 ${i > 0 ? "border-t border-border/50 pt-5" : ""}`}
+          >
+            {hasMulti && (
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-fg">
+                {toBn(i + 1)}
+              </span>
+            )}
+            {b.arabic && (
+              <p className="whitespace-pre-line font-arabic text-3xl leading-[2.2] text-foreground">
+                {b.arabic}
+              </p>
+            )}
+            {b.transliteration && (
+              <p className="whitespace-pre-line italic leading-relaxed text-muted">
+                {b.transliteration}
+              </p>
+            )}
+            {b.bengali && (
+              <p className="whitespace-pre-line border-r-4 border-primary/40 pr-4 font-bengali text-lg leading-relaxed text-foreground">
+                {b.bengali}
+              </p>
+            )}
+            {i === 0 && dua.english && (
+              <p className="whitespace-pre-line leading-relaxed text-muted">
+                {dua.english}
+              </p>
+            )}
+            {b.source && (
+              <p className="whitespace-pre-line font-bengali text-sm text-muted">
+                <span className="font-semibold text-foreground">উৎস:</span>{" "}
+                {b.source}
+              </p>
+            )}
           </div>
-        )}
+        ))}
 
-        <p className="border-r-4 border-primary/40 pr-4 font-bengali text-lg leading-relaxed text-foreground">
-          {dua.bengali}
-        </p>
-
-        {dua.english && (
-          <p className="leading-relaxed text-muted">{dua.english}</p>
-        )}
-
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 pt-1">
           {dua.tags
             .split(",")
             .map((t) => t.trim())
@@ -215,14 +254,12 @@ export default function DuaCard({ dua, index = 0 }: { dua: Dua; index?: number }
             ))}
         </div>
 
-        {(dua.source || dua.times || dua.benefits) && (
-          <div className="space-y-1.5 border-t border-border/60 pt-4 text-sm text-muted">
-            {dua.source && (
-              <p>
-                <span className="font-bengali font-semibold text-foreground">
-                  উৎস:
-                </span>{" "}
-                <span className="font-bengali">{dua.source}</span>
+        {(dua.context || dua.times || dua.rules || dua.benefits || dua.fojilot) && (
+          <div className="space-y-2 border-t border-border/60 pt-4 text-sm text-muted">
+            {dua.context && (
+              <p className="whitespace-pre-line font-bengali leading-relaxed">
+                <span className="font-semibold text-foreground">প্রেক্ষাপট:</span>{" "}
+                {dua.context}
               </p>
             )}
             {dua.times && (
@@ -233,10 +270,22 @@ export default function DuaCard({ dua, index = 0 }: { dua: Dua; index?: number }
                 <span className="font-bengali">{dua.times}</span>
               </p>
             )}
+            {dua.rules && (
+              <p className="whitespace-pre-line font-bengali leading-relaxed">
+                <span className="font-semibold text-foreground">পড়ার নিয়ম:</span>{" "}
+                {dua.rules}
+              </p>
+            )}
             {dua.benefits && (
-              <p className="font-bengali leading-relaxed">
+              <p className="whitespace-pre-line font-bengali leading-relaxed">
                 <span className="font-semibold text-foreground">ফায়েদা:</span>{" "}
                 {dua.benefits}
+              </p>
+            )}
+            {dua.fojilot && (
+              <p className="whitespace-pre-line font-bengali leading-relaxed">
+                <span className="font-semibold text-foreground">ফজিলত:</span>{" "}
+                {dua.fojilot}
               </p>
             )}
           </div>

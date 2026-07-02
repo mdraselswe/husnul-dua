@@ -1,3 +1,10 @@
+export interface DuaSegment {
+  arabic?: string;
+  transliteration?: string;
+  bengali?: string;
+  source?: string;
+}
+
 export interface Dua {
   id: string;
   titleBengali: string;
@@ -11,8 +18,12 @@ export interface Dua {
   source?: string;
   times?: string;
   benefits?: string;
+  fojilot?: string;
+  rules?: string;
+  context?: string;
   videoUrl?: string;
   articleUrl?: string;
+  segments?: DuaSegment[];
   status?: string;
 }
 

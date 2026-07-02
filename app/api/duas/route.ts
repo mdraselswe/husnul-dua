@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma-client";
 import { ADMIN_COOKIE, verifyToken } from "@/lib/auth";
+import { cleanSegments } from "@/lib/segments";
 
 // GET - Search duas
 export async function GET(request: NextRequest) {
@@ -82,8 +83,12 @@ export async function POST(request: NextRequest) {
       source,
       times,
       benefits,
+      fojilot,
+      rules,
+      context,
       videoUrl,
       articleUrl,
+      segments,
     } = body;
 
     if (!titleBengali || !bengali || !tags) {
@@ -106,8 +111,12 @@ export async function POST(request: NextRequest) {
         source,
         times,
         benefits,
+        fojilot,
+        rules,
+        context,
         videoUrl,
         articleUrl,
+        segments: cleanSegments(segments),
         status: isAdmin ? "approved" : "pending",
       },
     });

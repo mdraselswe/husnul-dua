@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma-client";
 import { ADMIN_COOKIE, verifyToken } from "@/lib/auth";
+import { cleanSegments } from "@/lib/segments";
 
 async function isAdmin(request: NextRequest) {
   return verifyToken(request.cookies.get(ADMIN_COOKIE)?.value);
@@ -49,8 +50,12 @@ export async function PUT(
       source,
       times,
       benefits,
+      fojilot,
+      rules,
+      context,
       videoUrl,
       articleUrl,
+      segments,
     } = body;
 
     if (!titleBengali || !bengali || !tags) {
@@ -74,8 +79,12 @@ export async function PUT(
         source,
         times,
         benefits,
+        fojilot,
+        rules,
+        context,
         videoUrl,
         articleUrl,
+        segments: cleanSegments(segments),
       },
     });
     return NextResponse.json(dua);

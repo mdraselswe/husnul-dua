@@ -24,9 +24,16 @@ model Dua {
   category      String?  // Optional category like "health", "protection", etc.
   source        String?  // Source reference like "Sahih Bukhari"
   times         String?  // When to recite (e.g., "3 times", "after Fajr")
-  benefits      String?  // Benefits in Bengali
+  benefits      String?  // Benefits in Bengali (ফায়েদা)
+  fojilot       String?  // Virtue / merit (ফজিলত)
+  rules         String?  // How/when to recite — method (পড়ার নিয়ম)
+  context       String?  // Background / context (প্রেক্ষাপট)
   videoUrl      String?  // Link to a video about the dua's virtue (fojilot)
   articleUrl    String?  // Link to an article about the dua's virtue
+  // Extra dua blocks for an amol containing multiple duas. JSON array of
+  // { arabic?, transliteration?, bengali?, source? }. Main fields above are
+  // dua #1; these are #2, #3, ... Empty/absent = single dua (backward compatible).
+  segments      Json?
   // Moderation: public submissions default to "pending" (set in API handler),
   // admin-created / approved are "approved". Column default is "approved" so
   // existing rows stay visible after `prisma db push`.

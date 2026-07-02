@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { CheckCircle2, Loader2, Save } from "lucide-react";
-import type { DuaFormData } from "@/lib/types";
+import { CheckCircle2, Loader2, Plus, Save, Trash2 } from "lucide-react";
+import type { DuaFormData, DuaSegment } from "@/lib/types";
 import TagInput from "./TagInput";
 import CategorySelect from "./CategorySelect";
 import { useAdmin } from "./AdminProvider";
@@ -20,8 +20,12 @@ const EMPTY: DuaFormData = {
   source: "",
   times: "",
   benefits: "",
+  fojilot: "",
+  rules: "",
+  context: "",
   videoUrl: "",
   articleUrl: "",
+  segments: [],
 };
 
 const fieldClass =
@@ -47,13 +51,31 @@ export default function DuaForm({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState<DuaFormData>({ ...EMPTY, ...initial });
+  const [form, setForm] = useState<DuaFormData>(() => {
+    const merged = { ...EMPTY, ...(initial ?? {}) };
+    // API returns null for empty optional columns; controlled inputs need "".
+    (Object.keys(EMPTY) as (keyof DuaFormData)[]).forEach((k) => {
+      if (k !== "segments" && merged[k] == null) (merged as Record<string, unknown>)[k] = "";
+    });
+    merged.segments = Array.isArray(merged.segments) ? merged.segments : [];
+    return merged;
+  });
 
   const isEdit = !!duaId;
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => setForm({ ...form, [e.target.name]: e.target.value });
+
+  const segments = form.segments ?? [];
+  const setSegments = (next: DuaSegment[]) =>
+    setForm((f) => ({ ...f, segments: next }));
+  const addSegment = () =>
+    setSegments([...segments, { arabic: "", transliteration: "", bengali: "" }]);
+  const updateSegment = (i: number, field: keyof DuaSegment, val: string) =>
+    setSegments(segments.map((s, idx) => (idx === i ? { ...s, [field]: val } : s)));
+  const removeSegment = (i: number) =>
+    setSegments(segments.filter((_, idx) => idx !== i));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -225,6 +247,85 @@ export default function DuaForm({
         </div>
       </section>
 
+      {/* Extra duas — for an amol with multiple duas */}
+      <section className="rounded-2xl border border-border bg-surface p-5 shadow-sm sm:p-6">
+        <div className="mb-1 flex items-center justify-between gap-2">
+          <h2 className="font-bengali text-lg font-bold text-foreground">
+            অতিরিক্ত দুআ
+          </h2>
+          <span className="font-bengali text-xs text-muted">
+            আমলে একাধিক দুআ থাকলে
+          </span>
+        </div>
+        <p className="mb-4 font-bengali text-xs text-muted">
+          উপরের দুআটি #১। এখানে যোগ করলে একই কার্ডে #২, #৩ ... হিসেবে দেখাবে।
+        </p>
+
+        <div className="space-y-4">
+          {segments.map((seg, i) => (
+            <div
+              key={i}
+              className="rounded-xl border border-border bg-surface-2/40 p-4"
+            >
+              <div className="mb-3 flex items-center justify-between">
+                <span className="font-bengali text-sm font-semibold text-primary-strong">
+                  দুআ #{i + 2}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => removeSegment(i)}
+                  aria-label="মুছুন"
+                  className="flex items-center gap-1 rounded-lg px-2 py-1 font-bengali text-xs text-red-600 transition hover:bg-red-50 dark:hover:bg-red-950/40"
+                >
+                  <Trash2 className="h-4 w-4" />
+                  সরান
+                </button>
+              </div>
+              <div className="space-y-3">
+                <textarea
+                  value={seg.arabic ?? ""}
+                  onChange={(e) => updateSegment(i, "arabic", e.target.value)}
+                  rows={2}
+                  className={`${fieldClass} font-arabic text-xl`}
+                  placeholder="আরবি"
+                />
+                <textarea
+                  value={seg.transliteration ?? ""}
+                  onChange={(e) =>
+                    updateSegment(i, "transliteration", e.target.value)
+                  }
+                  rows={2}
+                  className={`${fieldClass} italic`}
+                  placeholder="উচ্চারণ"
+                />
+                <textarea
+                  value={seg.bengali ?? ""}
+                  onChange={(e) => updateSegment(i, "bengali", e.target.value)}
+                  rows={2}
+                  className={`${fieldClass} font-bengali`}
+                  placeholder="বাংলা অনুবাদ"
+                />
+                <input
+                  value={seg.source ?? ""}
+                  onChange={(e) => updateSegment(i, "source", e.target.value)}
+                  className={`${fieldClass} font-bengali`}
+                  placeholder="উৎস (ঐচ্ছিক)"
+                />
+              </div>
+            </div>
+          ))}
+
+          <button
+            type="button"
+            onClick={addSegment}
+            className="flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-primary/50 py-3 font-bengali font-semibold text-primary-strong transition hover:bg-primary-soft/40"
+          >
+            <Plus className="h-5 w-5" />
+            আরও দুআ যোগ করুন
+          </button>
+        </div>
+      </section>
+
       <section className="rounded-2xl border border-border bg-surface p-5 shadow-sm sm:p-6">
         <h2 className="mb-4 font-bengali text-lg font-bold text-foreground">
           অতিরিক্ত তথ্য (ঐচ্ছিক)
@@ -235,6 +336,17 @@ export default function DuaForm({
             <CategorySelect
               value={form.category ?? ""}
               onChange={(category) => setForm((f) => ({ ...f, category }))}
+            />
+          </div>
+          <div>
+            <Label>প্রেক্ষাপট</Label>
+            <textarea
+              name="context"
+              value={form.context}
+              onChange={handleChange}
+              rows={3}
+              className={`${fieldClass} font-bengali`}
+              placeholder="দুআটির প্রেক্ষাপট/পটভূমি — কখন, কেন, কোন ঘটনায়"
             />
           </div>
           <div>
@@ -258,6 +370,17 @@ export default function DuaForm({
             />
           </div>
           <div>
+            <Label>পড়ার নিয়ম</Label>
+            <textarea
+              name="rules"
+              value={form.rules}
+              onChange={handleChange}
+              rows={3}
+              className={`${fieldClass} font-bengali`}
+              placeholder="কীভাবে ও কখন পড়তে হয় বিস্তারিত লিখুন"
+            />
+          </div>
+          <div>
             <Label>ফায়েদা</Label>
             <textarea
               name="benefits"
@@ -269,7 +392,18 @@ export default function DuaForm({
             />
           </div>
           <div>
-            <Label>ভিডিও লিংক (ফজিলত) — ঐচ্ছিক</Label>
+            <Label>ফজিলত</Label>
+            <textarea
+              name="fojilot"
+              value={form.fojilot}
+              onChange={handleChange}
+              rows={3}
+              className={`${fieldClass} font-bengali`}
+              placeholder="এই আমলের ফজিলত/মর্যাদা সম্পর্কে লিখুন"
+            />
+          </div>
+          <div>
+            <Label>ভিডিও লিংক — ঐচ্ছিক</Label>
             <input
               type="url"
               name="videoUrl"
@@ -280,7 +414,7 @@ export default function DuaForm({
             />
           </div>
           <div>
-            <Label>আর্টিকেল লিংক (ফজিলত) — ঐচ্ছিক</Label>
+            <Label>আর্টিকেল লিংক — ঐচ্ছিক</Label>
             <input
               type="url"
               name="articleUrl"
