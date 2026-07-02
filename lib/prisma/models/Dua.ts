@@ -39,9 +39,11 @@ export type DuaMinAggregateOutputType = {
   fojilot: string | null
   rules: string | null
   context: string | null
+  quranRef: string | null
   videoUrl: string | null
   articleUrl: string | null
   status: string | null
+  rejectReason: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -62,9 +64,11 @@ export type DuaMaxAggregateOutputType = {
   fojilot: string | null
   rules: string | null
   context: string | null
+  quranRef: string | null
   videoUrl: string | null
   articleUrl: string | null
   status: string | null
+  rejectReason: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -85,10 +89,12 @@ export type DuaCountAggregateOutputType = {
   fojilot: number
   rules: number
   context: number
+  quranRef: number
   videoUrl: number
   articleUrl: number
   segments: number
   status: number
+  rejectReason: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -111,9 +117,11 @@ export type DuaMinAggregateInputType = {
   fojilot?: true
   rules?: true
   context?: true
+  quranRef?: true
   videoUrl?: true
   articleUrl?: true
   status?: true
+  rejectReason?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -134,9 +142,11 @@ export type DuaMaxAggregateInputType = {
   fojilot?: true
   rules?: true
   context?: true
+  quranRef?: true
   videoUrl?: true
   articleUrl?: true
   status?: true
+  rejectReason?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -157,10 +167,12 @@ export type DuaCountAggregateInputType = {
   fojilot?: true
   rules?: true
   context?: true
+  quranRef?: true
   videoUrl?: true
   articleUrl?: true
   segments?: true
   status?: true
+  rejectReason?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -254,10 +266,12 @@ export type DuaGroupByOutputType = {
   fojilot: string | null
   rules: string | null
   context: string | null
+  quranRef: string | null
   videoUrl: string | null
   articleUrl: string | null
   segments: runtime.JsonValue | null
   status: string
+  rejectReason: string | null
   createdAt: Date
   updatedAt: Date
   _count: DuaCountAggregateOutputType | null
@@ -299,10 +313,12 @@ export type DuaWhereInput = {
   fojilot?: Prisma.StringNullableFilter<"Dua"> | string | null
   rules?: Prisma.StringNullableFilter<"Dua"> | string | null
   context?: Prisma.StringNullableFilter<"Dua"> | string | null
+  quranRef?: Prisma.StringNullableFilter<"Dua"> | string | null
   videoUrl?: Prisma.StringNullableFilter<"Dua"> | string | null
   articleUrl?: Prisma.StringNullableFilter<"Dua"> | string | null
   segments?: Prisma.JsonNullableFilter<"Dua">
   status?: Prisma.StringFilter<"Dua"> | string
+  rejectReason?: Prisma.StringNullableFilter<"Dua"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Dua"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Dua"> | Date | string
 }
@@ -323,10 +339,12 @@ export type DuaOrderByWithRelationInput = {
   fojilot?: Prisma.SortOrderInput | Prisma.SortOrder
   rules?: Prisma.SortOrderInput | Prisma.SortOrder
   context?: Prisma.SortOrderInput | Prisma.SortOrder
+  quranRef?: Prisma.SortOrderInput | Prisma.SortOrder
   videoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   articleUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   segments?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  rejectReason?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -350,10 +368,12 @@ export type DuaWhereUniqueInput = Prisma.AtLeast<{
   fojilot?: Prisma.StringNullableFilter<"Dua"> | string | null
   rules?: Prisma.StringNullableFilter<"Dua"> | string | null
   context?: Prisma.StringNullableFilter<"Dua"> | string | null
+  quranRef?: Prisma.StringNullableFilter<"Dua"> | string | null
   videoUrl?: Prisma.StringNullableFilter<"Dua"> | string | null
   articleUrl?: Prisma.StringNullableFilter<"Dua"> | string | null
   segments?: Prisma.JsonNullableFilter<"Dua">
   status?: Prisma.StringFilter<"Dua"> | string
+  rejectReason?: Prisma.StringNullableFilter<"Dua"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Dua"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Dua"> | Date | string
 }, "id">
@@ -374,10 +394,12 @@ export type DuaOrderByWithAggregationInput = {
   fojilot?: Prisma.SortOrderInput | Prisma.SortOrder
   rules?: Prisma.SortOrderInput | Prisma.SortOrder
   context?: Prisma.SortOrderInput | Prisma.SortOrder
+  quranRef?: Prisma.SortOrderInput | Prisma.SortOrder
   videoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   articleUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   segments?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  rejectReason?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.DuaCountOrderByAggregateInput
@@ -404,10 +426,12 @@ export type DuaScalarWhereWithAggregatesInput = {
   fojilot?: Prisma.StringNullableWithAggregatesFilter<"Dua"> | string | null
   rules?: Prisma.StringNullableWithAggregatesFilter<"Dua"> | string | null
   context?: Prisma.StringNullableWithAggregatesFilter<"Dua"> | string | null
+  quranRef?: Prisma.StringNullableWithAggregatesFilter<"Dua"> | string | null
   videoUrl?: Prisma.StringNullableWithAggregatesFilter<"Dua"> | string | null
   articleUrl?: Prisma.StringNullableWithAggregatesFilter<"Dua"> | string | null
   segments?: Prisma.JsonNullableWithAggregatesFilter<"Dua">
   status?: Prisma.StringWithAggregatesFilter<"Dua"> | string
+  rejectReason?: Prisma.StringNullableWithAggregatesFilter<"Dua"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Dua"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Dua"> | Date | string
 }
@@ -428,10 +452,12 @@ export type DuaCreateInput = {
   fojilot?: string | null
   rules?: string | null
   context?: string | null
+  quranRef?: string | null
   videoUrl?: string | null
   articleUrl?: string | null
   segments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: string
+  rejectReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -452,10 +478,12 @@ export type DuaUncheckedCreateInput = {
   fojilot?: string | null
   rules?: string | null
   context?: string | null
+  quranRef?: string | null
   videoUrl?: string | null
   articleUrl?: string | null
   segments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: string
+  rejectReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -476,10 +504,12 @@ export type DuaUpdateInput = {
   fojilot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   context?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quranRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   articleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   segments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -500,10 +530,12 @@ export type DuaUncheckedUpdateInput = {
   fojilot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   context?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quranRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   articleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   segments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -524,10 +556,12 @@ export type DuaCreateManyInput = {
   fojilot?: string | null
   rules?: string | null
   context?: string | null
+  quranRef?: string | null
   videoUrl?: string | null
   articleUrl?: string | null
   segments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: string
+  rejectReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -548,10 +582,12 @@ export type DuaUpdateManyMutationInput = {
   fojilot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   context?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quranRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   articleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   segments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -572,10 +608,12 @@ export type DuaUncheckedUpdateManyInput = {
   fojilot?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rules?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   context?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  quranRef?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   articleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   segments?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.StringFieldUpdateOperationsInput | string
+  rejectReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -596,10 +634,12 @@ export type DuaCountOrderByAggregateInput = {
   fojilot?: Prisma.SortOrder
   rules?: Prisma.SortOrder
   context?: Prisma.SortOrder
+  quranRef?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
   articleUrl?: Prisma.SortOrder
   segments?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  rejectReason?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -620,9 +660,11 @@ export type DuaMaxOrderByAggregateInput = {
   fojilot?: Prisma.SortOrder
   rules?: Prisma.SortOrder
   context?: Prisma.SortOrder
+  quranRef?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
   articleUrl?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  rejectReason?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -643,9 +685,11 @@ export type DuaMinOrderByAggregateInput = {
   fojilot?: Prisma.SortOrder
   rules?: Prisma.SortOrder
   context?: Prisma.SortOrder
+  quranRef?: Prisma.SortOrder
   videoUrl?: Prisma.SortOrder
   articleUrl?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  rejectReason?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -680,10 +724,12 @@ export type DuaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   fojilot?: boolean
   rules?: boolean
   context?: boolean
+  quranRef?: boolean
   videoUrl?: boolean
   articleUrl?: boolean
   segments?: boolean
   status?: boolean
+  rejectReason?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["dua"]>
@@ -704,10 +750,12 @@ export type DuaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   fojilot?: boolean
   rules?: boolean
   context?: boolean
+  quranRef?: boolean
   videoUrl?: boolean
   articleUrl?: boolean
   segments?: boolean
   status?: boolean
+  rejectReason?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["dua"]>
@@ -728,10 +776,12 @@ export type DuaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   fojilot?: boolean
   rules?: boolean
   context?: boolean
+  quranRef?: boolean
   videoUrl?: boolean
   articleUrl?: boolean
   segments?: boolean
   status?: boolean
+  rejectReason?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["dua"]>
@@ -752,15 +802,17 @@ export type DuaSelectScalar = {
   fojilot?: boolean
   rules?: boolean
   context?: boolean
+  quranRef?: boolean
   videoUrl?: boolean
   articleUrl?: boolean
   segments?: boolean
   status?: boolean
+  rejectReason?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type DuaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "titleBengali" | "titleEnglish" | "arabic" | "transliteration" | "bengali" | "english" | "tags" | "category" | "source" | "times" | "benefits" | "fojilot" | "rules" | "context" | "videoUrl" | "articleUrl" | "segments" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["dua"]>
+export type DuaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "titleBengali" | "titleEnglish" | "arabic" | "transliteration" | "bengali" | "english" | "tags" | "category" | "source" | "times" | "benefits" | "fojilot" | "rules" | "context" | "quranRef" | "videoUrl" | "articleUrl" | "segments" | "status" | "rejectReason" | "createdAt" | "updatedAt", ExtArgs["result"]["dua"]>
 
 export type $DuaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Dua"
@@ -781,10 +833,12 @@ export type $DuaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     fojilot: string | null
     rules: string | null
     context: string | null
+    quranRef: string | null
     videoUrl: string | null
     articleUrl: string | null
     segments: runtime.JsonValue | null
     status: string
+    rejectReason: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["dua"]>
@@ -1225,10 +1279,12 @@ export interface DuaFieldRefs {
   readonly fojilot: Prisma.FieldRef<"Dua", 'String'>
   readonly rules: Prisma.FieldRef<"Dua", 'String'>
   readonly context: Prisma.FieldRef<"Dua", 'String'>
+  readonly quranRef: Prisma.FieldRef<"Dua", 'String'>
   readonly videoUrl: Prisma.FieldRef<"Dua", 'String'>
   readonly articleUrl: Prisma.FieldRef<"Dua", 'String'>
   readonly segments: Prisma.FieldRef<"Dua", 'Json'>
   readonly status: Prisma.FieldRef<"Dua", 'String'>
+  readonly rejectReason: Prisma.FieldRef<"Dua", 'String'>
   readonly createdAt: Prisma.FieldRef<"Dua", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Dua", 'DateTime'>
 }

@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { BookOpen, ClipboardCheck, LogIn, LogOut, Plus } from "lucide-react";
+import { BookOpen, BookOpenCheck, ClipboardCheck, LogIn, LogOut, Plus } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
+import FontSizeControl from "./FontSizeControl";
 import { useAdmin } from "./AdminProvider";
 
 export default function Header({ subtitle }: { subtitle?: string }) {
@@ -47,8 +48,16 @@ export default function Header({ subtitle }: { subtitle?: string }) {
 
         <div className="flex items-center gap-2">
           <Link
+            href="/amol"
+            aria-label="আমল মোড"
+            className="flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-2 font-bengali text-sm font-semibold transition hover:bg-white/25"
+          >
+            <BookOpenCheck className="h-4 w-4" />
+            <span className="hidden sm:inline">আমল</span>
+          </Link>
+          <Link
             href="/add"
-            className="flex items-center gap-1.5 rounded-full bg-white/15 px-4 py-2 font-bengali text-sm font-semibold transition hover:bg-white/25"
+            className="flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-2 font-bengali text-sm font-semibold transition hover:bg-white/25"
           >
             <Plus className="h-4 w-4" />
             <span className="hidden sm:inline">নতুন দুআ</span>
@@ -86,6 +95,9 @@ export default function Header({ subtitle }: { subtitle?: string }) {
               <LogIn className="h-5 w-5" />
             </Link>
           )}
+          <div className="hidden sm:block">
+            <FontSizeControl />
+          </div>
           <ThemeToggle />
         </div>
       </div>

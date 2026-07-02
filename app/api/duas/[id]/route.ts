@@ -3,6 +3,9 @@ import { prisma } from "@/lib/prisma-client";
 import { ADMIN_COOKIE, verifyToken } from "@/lib/auth";
 import { cleanSegments } from "@/lib/segments";
 
+const errMsg = (e: unknown) => (e instanceof Error ? e.message : String(e));
+const errCode = (e: unknown) => (e as { code?: string })?.code;
+
 async function isAdmin(request: NextRequest) {
   return verifyToken(request.cookies.get(ADMIN_COOKIE)?.value);
 }
@@ -19,9 +22,9 @@ export async function GET(
       return NextResponse.json({ error: "দুআ পাওয়া যায়নি" }, { status: 404 });
     }
     return NextResponse.json(dua);
-  } catch (error: any) {
+  } catch (error) {
     return NextResponse.json(
-      { error: "Failed to fetch dua", message: error.message },
+      { error: "Failed to fetch dua", message: errMsg(error) },
       { status: 500 }
     );
   }
@@ -53,6 +56,7 @@ export async function PUT(
       fojilot,
       rules,
       context,
+      quranRef,
       videoUrl,
       articleUrl,
       segments,
@@ -82,24 +86,25 @@ export async function PUT(
         fojilot,
         rules,
         context,
+        quranRef,
         videoUrl,
         articleUrl,
         segments: cleanSegments(segments),
       },
     });
     return NextResponse.json(dua);
-  } catch (error: any) {
-    if (error.code === "P2025") {
+  } catch (error) {
+    if (errCode(error) === "P2025") {
       return NextResponse.json({ error: "দুআ পাওয়া যায়নি" }, { status: 404 });
     }
     return NextResponse.json(
-      { error: "Failed to update dua", message: error.message },
+      { error: "Failed to update dua", message: errMsg(error) },
       { status: 500 }
     );
   }
 }
 
-// PATCH - approve a pending dua (admin only)
+// PATCH - moderate a submission (admin only): approve, or reject with a reason.
 export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -109,17 +114,19 @@ export async function PATCH(
       return NextResponse.json({ error: "অননুমোদিত" }, { status: 401 });
     }
     const { id } = await params;
-    const dua = await prisma.dua.update({
-      where: { id },
-      data: { status: "approved" },
-    });
+    const body = await request.json().catch(() => ({}));
+    const data =
+      body.action === "reject"
+        ? { status: "rejected", rejectReason: body.reason || null }
+        : { status: "approved", rejectReason: null };
+    const dua = await prisma.dua.update({ where: { id }, data });
     return NextResponse.json(dua);
-  } catch (error: any) {
-    if (error.code === "P2025") {
+  } catch (error) {
+    if (errCode(error) === "P2025") {
       return NextResponse.json({ error: "দুআ পাওয়া যায়নি" }, { status: 404 });
     }
     return NextResponse.json(
-      { error: "Failed to approve dua", message: error.message },
+      { error: "Failed to approve dua", message: errMsg(error) },
       { status: 500 }
     );
   }
@@ -137,12 +144,12 @@ export async function DELETE(
     const { id } = await params;
     await prisma.dua.delete({ where: { id } });
     return NextResponse.json({ ok: true });
-  } catch (error: any) {
-    if (error.code === "P2025") {
+  } catch (error) {
+    if (errCode(error) === "P2025") {
       return NextResponse.json({ error: "দুআ পাওয়া যায়নি" }, { status: 404 });
     }
     return NextResponse.json(
-      { error: "Failed to delete dua", message: error.message },
+      { error: "Failed to delete dua", message: errMsg(error) },
       { status: 500 }
     );
   }

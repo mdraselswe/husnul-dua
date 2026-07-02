@@ -538,10 +538,12 @@ export const DuaScalarFieldEnum = {
   fojilot: 'fojilot',
   rules: 'rules',
   context: 'context',
+  quranRef: 'quranRef',
   videoUrl: 'videoUrl',
   articleUrl: 'articleUrl',
   segments: 'segments',
   status: 'status',
+  rejectReason: 'rejectReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

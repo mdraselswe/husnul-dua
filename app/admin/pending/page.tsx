@@ -37,9 +37,17 @@ export default function PendingReviewPage() {
   };
 
   const reject = async (id: string, title: string) => {
-    if (!confirm(`"${title}" দুআটি বাতিল ও মুছে ফেলবেন?`)) return;
+    const reason = window.prompt(
+      `"${title}" বাতিল করছেন। কারণ লিখুন (ঐচ্ছিক):`,
+      ""
+    );
+    if (reason === null) return; // cancelled
     setBusy(id);
-    const res = await fetch(`/api/duas/${id}`, { method: "DELETE" });
+    const res = await fetch(`/api/duas/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "reject", reason }),
+    });
     if (res.ok) setDuas((d) => d.filter((x) => x.id !== id));
     setBusy(null);
   };

@@ -21,10 +21,13 @@ export interface Dua {
   fojilot?: string;
   rules?: string;
   context?: string;
+  quranRef?: string;
   videoUrl?: string;
   articleUrl?: string;
   segments?: DuaSegment[];
   status?: string;
+  rejectReason?: string;
+  createdAt?: string;
 }
 
 export type DuaFormData = Omit<Dua, "id"> & { id?: string };

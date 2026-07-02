@@ -5,7 +5,7 @@ import { ADMIN_COOKIE, verifyToken } from "@/lib/auth";
 // their own check in the route handlers.
 const PROTECTED = [/^\/edit(\/|$)/, /^\/admin(\/|$)/];
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   if (!PROTECTED.some((re) => re.test(pathname))) return NextResponse.next();
 

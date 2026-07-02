@@ -28,6 +28,7 @@ model Dua {
   fojilot       String?  // Virtue / merit (ফজিলত)
   rules         String?  // How/when to recite — method (পড়ার নিয়ম)
   context       String?  // Background / context (প্রেক্ষাপট)
+  quranRef      String?  // Quran audio ref, e.g. "2:255" or "112:1-4, 113:1-5"
   videoUrl      String?  // Link to a video about the dua's virtue (fojilot)
   articleUrl    String?  // Link to an article about the dua's virtue
   // Extra dua blocks for an amol containing multiple duas. JSON array of
@@ -37,7 +38,8 @@ model Dua {
   // Moderation: public submissions default to "pending" (set in API handler),
   // admin-created / approved are "approved". Column default is "approved" so
   // existing rows stay visible after `prisma db push`.
-  status        String   @default("approved") // "pending" | "approved"
+  status        String   @default("approved") // "pending" | "approved" | "rejected"
+  rejectReason  String?  // Admin note when a submission is rejected
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 

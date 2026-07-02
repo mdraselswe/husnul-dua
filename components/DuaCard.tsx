@@ -17,6 +17,8 @@ import {
 import type { Dua, DuaSegment } from "@/lib/types";
 import { useFavorites } from "./useFavorites";
 import { useAdmin } from "./AdminProvider";
+import QuranAudio from "./QuranAudio";
+import { categoryIcon } from "@/lib/categoryIcons";
 
 const BN_DIGITS = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
 const toBn = (n: number) =>
@@ -152,6 +154,12 @@ export default function DuaCard({ dua, index = 0 }: { dua: Dua; index?: number }
       {/* Header strip */}
       <div className="flex items-start justify-between gap-3 border-b border-border/60 px-5 py-4">
         <div className="min-w-0">
+          {dua.category && (
+            <span className="mb-1 inline-flex items-center gap-1 rounded-full bg-surface-2 px-2.5 py-0.5 font-bengali text-xs font-medium text-muted">
+              <span aria-hidden>{categoryIcon(dua.category)}</span>
+              {dua.category}
+            </span>
+          )}
           <h2 className="font-bengali text-xl font-bold text-foreground">
             {dua.titleBengali}
           </h2>
@@ -200,6 +208,8 @@ export default function DuaCard({ dua, index = 0 }: { dua: Dua; index?: number }
       </div>
 
       <div className="space-y-5 px-5 py-5">
+        {dua.quranRef && <QuranAudio quranRef={dua.quranRef} />}
+
         {blocks.map((b, i) => (
           <div
             key={i}
@@ -211,17 +221,17 @@ export default function DuaCard({ dua, index = 0 }: { dua: Dua; index?: number }
               </span>
             )}
             {b.arabic && (
-              <p className="whitespace-pre-line font-arabic text-3xl leading-[2.2] text-foreground">
+              <p className="read-arabic whitespace-pre-line font-arabic text-foreground">
                 {b.arabic}
               </p>
             )}
             {b.transliteration && (
-              <p className="whitespace-pre-line italic leading-relaxed text-muted">
+              <p className="read-translit whitespace-pre-line italic leading-relaxed text-muted">
                 {b.transliteration}
               </p>
             )}
             {b.bengali && (
-              <p className="whitespace-pre-line border-r-4 border-primary/40 pr-4 font-bengali text-lg leading-relaxed text-foreground">
+              <p className="read-bengali whitespace-pre-line border-r-4 border-primary/40 pr-4 font-bengali leading-relaxed text-foreground">
                 {b.bengali}
               </p>
             )}
@@ -321,7 +331,7 @@ export default function DuaCard({ dua, index = 0 }: { dua: Dua; index?: number }
       </div>
 
       {/* Action bar */}
-      <div className="flex flex-wrap items-center gap-2 border-t border-border/60 bg-surface-2/30 px-5 py-3">
+      <div className="flex flex-wrap items-center gap-2 border-t border-border/60 bg-surface-2/30 px-5 py-3 print:hidden">
         <motion.button
           whileTap={{ scale: 0.94 }}
           onClick={handleCopy}

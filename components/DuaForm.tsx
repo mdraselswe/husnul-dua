@@ -23,6 +23,7 @@ const EMPTY: DuaFormData = {
   fojilot: "",
   rules: "",
   context: "",
+  quranRef: "",
   videoUrl: "",
   articleUrl: "",
   segments: [],
@@ -401,6 +402,20 @@ export default function DuaForm({
               className={`${fieldClass} font-bengali`}
               placeholder="এই আমলের ফজিলত/মর্যাদা সম্পর্কে লিখুন"
             />
+          </div>
+          <div>
+            <Label>কুরআন তিলাওয়াত রেফারেন্স — ঐচ্ছিক</Label>
+            <input
+              name="quranRef"
+              value={form.quranRef}
+              onChange={handleChange}
+              className={fieldClass}
+              placeholder="যেমন: 2:255  বা  112:1-4, 113:1-5"
+            />
+            <p className="mt-1 font-bengali text-xs text-muted">
+              সূরা:আয়াত (কুরআনের আয়াত হলে)। একাধিক হলে কমা দিন। সহীহ তিলাওয়াত
+              (মিশারি আল-আফাসি) কার্ডে বাজবে। হাদিসের দুআয় খালি রাখুন।
+            </p>
           </div>
           <div>
             <Label>ভিডিও লিংক — ঐচ্ছিক</Label>

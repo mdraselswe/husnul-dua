@@ -11,9 +11,12 @@ export async function GET() {
       if (c) set.add(c);
     });
     return NextResponse.json(Array.from(set).sort());
-  } catch (error: any) {
+  } catch (error) {
     return NextResponse.json(
-      { error: "Failed to fetch categories", message: error.message },
+      {
+        error: "Failed to fetch categories",
+        message: error instanceof Error ? error.message : String(error),
+      },
       { status: 500 }
     );
   }

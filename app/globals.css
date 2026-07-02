@@ -73,6 +73,12 @@ body {
   text-align: right;
 }
 
+/* Reading text sizes scale with the user's font-size control (--read-scale). */
+:root { --read-scale: 1; }
+.read-arabic { font-size: calc(1.875rem * var(--read-scale)); line-height: 2.2; }
+.read-bengali { font-size: calc(1.125rem * var(--read-scale)); }
+.read-translit { font-size: calc(1rem * var(--read-scale)); }
+
 /* ---- Animations ---- */
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(14px); }
@@ -159,3 +165,14 @@ body {
 /* Thin scrollbar for filter rows */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Clean print layout (dua detail page). */
+@media print {
+  body { background: #fff; color: #000; }
+  .glass, .glass-header {
+    background: #fff !important;
+    backdrop-filter: none !important;
+    border-color: #ddd !important;
+    box-shadow: none !important;
+  }
+}

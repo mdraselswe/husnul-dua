@@ -1,7 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Prisma } from "@/lib/prisma/client";
 import { prisma } from "@/lib/prisma-client";
 import { ADMIN_COOKIE, verifyToken } from "@/lib/auth";
 import { cleanSegments } from "@/lib/segments";
+
+const errMsg = (e: unknown) => (e instanceof Error ? e.message : String(e));
+
+// Best-effort in-memory rate limit for public submissions (no external service).
+// Per-instance only; resets on cold start — enough to deter casual spam.
+const submitHits = new Map<string, number[]>();
+function rateLimited(ip: string, max = 5, windowMs = 10 * 60 * 1000): boolean {
+  const now = Date.now();
+  const hits = (submitHits.get(ip) || []).filter((t) => now - t < windowMs);
+  if (hits.length >= max) {
+    submitHits.set(ip, hits);
+    return true;
+  }
+  hits.push(now);
+  submitHits.set(ip, hits);
+  return false;
+}
 
 // GET - Search duas
 export async function GET(request: NextRequest) {
@@ -12,7 +30,7 @@ export async function GET(request: NextRequest) {
     const category = searchParams.get("category") || "";
     const status = searchParams.get("status") || "";
 
-    const where: any = {};
+    const where: Prisma.DuaWhereInput = {};
 
     // Moderation visibility: public sees only "approved". Pending/all requires admin.
     if (status === "pending" || status === "all") {
@@ -48,15 +66,10 @@ export async function GET(request: NextRequest) {
     });
 
     return NextResponse.json(duas);
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error fetching duas:", error);
     return NextResponse.json(
-      {
-        error: "Failed to fetch duas",
-        message: error.message,
-        code: error.code,
-        hint: error.message?.includes('DATABASE_URL') ? 'DATABASE_URL environment variable not set' : undefined
-      },
+      { error: "Failed to fetch duas", message: errMsg(error) },
       { status: 500 }
     );
   }
@@ -69,6 +82,18 @@ export async function POST(request: NextRequest) {
     const isAdmin = await verifyToken(
       request.cookies.get(ADMIN_COOKIE)?.value
     );
+
+    if (!isAdmin) {
+      const ip =
+        request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+        "unknown";
+      if (rateLimited(ip)) {
+        return NextResponse.json(
+          { error: "অনেকবার জমা দিয়েছেন। কিছুক্ষণ পর আবার চেষ্টা করুন।" },
+          { status: 429 }
+        );
+      }
+    }
 
     const body = await request.json();
     const {
@@ -86,6 +111,7 @@ export async function POST(request: NextRequest) {
       fojilot,
       rules,
       context,
+      quranRef,
       videoUrl,
       articleUrl,
       segments,
@@ -114,6 +140,7 @@ export async function POST(request: NextRequest) {
         fojilot,
         rules,
         context,
+        quranRef,
         videoUrl,
         articleUrl,
         segments: cleanSegments(segments),
@@ -122,13 +149,10 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json({ ...dua, pending: !isAdmin }, { status: 201 });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error creating dua:", error);
     return NextResponse.json(
-      { 
-        error: "Failed to create dua",
-        message: process.env.NODE_ENV === 'development' ? error.message : undefined
-      },
+      { error: "Failed to create dua", message: errMsg(error) },
       { status: 500 }
     );
   }

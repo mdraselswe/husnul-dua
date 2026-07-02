@@ -18,13 +18,12 @@ export async function GET() {
     });
 
     return NextResponse.json(Array.from(allTags).sort());
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error fetching tags:", error);
     return NextResponse.json(
-      { 
+      {
         error: "Failed to fetch tags",
-        message: process.env.NODE_ENV === 'development' ? error.message : undefined,
-        details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+        message: error instanceof Error ? error.message : String(error),
       },
       { status: 500 }
     );

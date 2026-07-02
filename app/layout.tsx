@@ -68,7 +68,7 @@ export default function RootLayout({
       >
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('hd_theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark');}catch(e){}})();`,
+            __html: `(function(){try{var t=localStorage.getItem('hd_theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark');var fs=localStorage.getItem('hd_read_scale');if(fs)document.documentElement.style.setProperty('--read-scale',fs);}catch(e){}})();`,
           }}
         />
         <AdminProvider>{children}</AdminProvider>
